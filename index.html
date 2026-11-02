@@ -63,10 +63,10 @@ nav.tabs a{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radiu
 nav.tabs a svg{width:20px;height:20px;flex:none}
 nav.tabs a[aria-current="page"]{color:var(--accent);background:var(--info-bg)}
 @media (max-width:759px){
-  nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:25;background:var(--surface);border-top:1px solid var(--line);
-    justify-content:space-around;padding:4px max(8px,env(safe-area-inset-right,0px)) calc(4px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
-  nav.tabs a{flex-direction:column;gap:2px;font-size:11px;padding:6px 4px;flex:1;text-align:center}
-  main{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))!important}
+  .top-in{flex-wrap:wrap;gap:6px 10px;min-height:0;padding-top:8px}
+  nav.tabs{order:3;width:100%;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px;padding-bottom:4px}
+  nav.tabs a{flex-direction:column;gap:2px;font-size:11px;padding:6px 2px;text-align:center;white-space:nowrap}
+  nav.tabs a[aria-current="page"]{box-shadow:inset 0 -2px 0 var(--accent)}
 }
 
 main{max-width:1180px;margin:0 auto;padding-block:20px 48px;
@@ -234,9 +234,9 @@ label.f textarea{min-height:70px;resize:vertical}
 .flagwarn{border-radius:6px;padding:6px 10px;font-size:13px;background:var(--warn-bg)}
 .flagwarn.ham{background:var(--bad-bg)}
 .flagcard.ham{border-left:4px solid var(--bad)} .flagcard.luuy{border-left:4px solid var(--warn)}
-@media (max-width:759px){nav.tabs a{font-size:10px;padding:6px 2px}nav.tabs a svg{width:19px;height:19px}}
+@media (max-width:759px){nav.tabs a{font-size:10px}nav.tabs a svg{width:19px;height:19px}}
 .notepre{margin:0;white-space:pre-wrap;font-family:var(--f-mono);font-size:13px;line-height:1.6;background:var(--surface-2);border-radius:8px;padding:12px 14px;overflow-x:auto}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(96px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--surface);padding:10px 16px;border-radius:8px;font-size:14px;z-index:60;max-width:calc(100% - 32px)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(24px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--surface);padding:10px 16px;border-radius:8px;font-size:14px;z-index:60;max-width:calc(100% - 32px)}
 @media (min-width:760px){.toast{bottom:calc(24px + env(safe-area-inset-bottom,0px))}}
 @media (prefers-reduced-motion:no-preference){.sheet{animation:up .18s ease-out}@keyframes up{from{transform:translateY(24px);opacity:.6}}}
 </style>
@@ -506,7 +506,7 @@ const LS_KEY='sokythuat.v1';
 const Store={
   mode:'loading', jobs:{}, customers:{}, houses:{}, db:null, chains:{},
   loadLocal(){try{const d=JSON.parse(localStorage.getItem(LS_KEY)||'{}');COLS.forEach(c=>this[c]=d[c]||{});}catch(e){}},
-  saveLocal(){try{const d={};COLS.forEach(c=>d[c]=this[c]);localStorage.setItem(LS_KEY,JSON.stringify(d));}catch(e){}},
+  saveLocal(){scheduleSnap();try{const d={};COLS.forEach(c=>d[c]=this[c]);localStorage.setItem(LS_KEY,JSON.stringify(d));}catch(e){}},
   async init(){
     this.loadLocal(); renderAll();
     let db=null;
@@ -646,8 +646,12 @@ function renderToday(){
     `<div class="empty">${isToday?'Chưa ghi ca nào hôm nay.':'Không có ca nào trong ngày này.'}<button class="btn pri" type="button" data-new-job>+ Ghi ca hoàn thành</button></div>`;
   $('#coordCount').textContent=coords.length?coords.length+' lần':'';
   $('#dayCoords').innerHTML=coords.length?`<div class="infobox hist">${coords.map(({c,e})=>`<div style="cursor:pointer" data-cust="${esc(c.id)}"><span><b>${esc(c.name)}</b> <span class="hint">${fmtTime(e.at)}${c.contract?' · HĐ '+esc(c.contract):''} · ${e.src==='gps'?'GPS'+(e.acc?' ±'+e.acc+' m':''):'dán / nhập tay'}</span></span><span class="mono">${(+e.lat).toFixed(6)}, ${(+e.lng).toFixed(6)}</span></div>`).join('')}</div>`:'<div class="hint">Không lấy tọa độ nào trong ngày này.</div>';
-  {const lb=lastBackup();const need=Store.mode==='local'&&window.parent===window&&(Object.keys(Store.customers).length||Object.keys(Store.jobs).length)&&(!lb||daysSince(lb)>=7);
-   $('#backupBox').innerHTML=need?`<div class="notice row" style="justify-content:space-between"><span>${lb?'Lần sao lưu gần nhất cách đây '+daysSince(lb)+' ngày.':'Bạn chưa sao lưu dữ liệu lần nào.'} Dữ liệu chỉ nằm trên máy này.</span><button class="btn sm pri" type="button" data-open-data>Sao lưu ngay</button></div>`:'';}
+  {const lb=lastBackup();const has=Object.keys(Store.customers).length||Object.keys(Store.jobs).length;
+   const lastEdit=[...Object.values(Store.jobs),...Object.values(Store.customers)].reduce((a,o)=>String(o.updatedAt||'')>a?String(o.updatedAt):a,'');
+   const unsaved=lastEdit&&(!lb||lastEdit>lb);const late=new Date().getHours()>=17;const fromBefore=unsaved&&dayKey(lastEdit)<todayKey();
+   const show=Store.mode==='local'&&!isEmbedded&&has&&unsaved&&(late||fromBefore);
+   $('#backupBox').innerHTML=show?`<div class="notice" style="display:flex;flex-direction:column;gap:8px"><span><b>${fromBefore?'Dữ liệu ngày '+esc(fmtFull(lastEdit))+' chưa được lưu ra file.':'Cuối ngày rồi: lưu dữ liệu hôm nay ra file.'}</b> App đã tự lưu một bản trong máy, nhưng nên giữ thêm một file ngoài để không mất khi đổi máy hoặc xóa trình duyệt.</span>
+     <span class="row">${canShareFiles()?'<button class="btn sm pri" type="button" data-share-backup>Gửi qua Zalo / Drive…</button>':''}<button class="btn sm${canShareFiles()?'':' pri'}" type="button" data-dl-backup>Tải file về máy</button></span></div>`:'';}
 }
 function dayReport(){
   const day=selDay;const list=dayJobs(day);const sd=new Date(day+'T12:00:00');
@@ -670,6 +674,26 @@ function dayReport(){
 /* ===================== SAO LƯU / CHUYỂN DỮ LIỆU ===================== */
 const isEmbedded=window.parent!==window;
 function lastBackup(){try{return localStorage.getItem('sokythuat.lastBackup')||''}catch(e){return ''}}
+function stampBackup(){try{localStorage.setItem('sokythuat.lastBackup',new Date().toISOString())}catch(e){}}
+/* ----- Bản lưu tự động theo ngày (IndexedDB, giữ 30 ngày) ----- */
+const SNAP={p:null,
+  open(){return this.p||(this.p=new Promise((res,rej)=>{const r=indexedDB.open('sokythuat-snap',1);r.onupgradeneeded=()=>r.result.createObjectStore('days');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);}));},
+  async tx(mode,fn){const db=await this.open();return new Promise((res,rej)=>{const t=db.transaction('days',mode);const st=t.objectStore('days');const r=fn(st);t.oncomplete=()=>res(r&&r.result);t.onerror=()=>rej(t.error);});},
+  put(k,v){return this.tx('readwrite',st=>st.put(v,k));},get(k){return this.tx('readonly',st=>st.get(k));},
+  keys(){return this.tx('readonly',st=>st.getAllKeys());},del(k){return this.tx('readwrite',st=>st.delete(k));}};
+const snapOn=()=>!isEmbedded&&'indexedDB' in window;
+let snapT=null;
+function scheduleSnap(){if(!snapOn())return;clearTimeout(snapT);snapT=setTimeout(autoSnapshot,2500);}
+async function autoSnapshot(){if(!snapOn()||Store.mode!=='local')return;
+  if(!Object.keys(Store.customers).length&&!Object.keys(Store.jobs).length)return;
+  try{await SNAP.put(todayKey(),{at:new Date().toISOString(),nc:Object.keys(Store.customers).length,nj:Object.keys(Store.jobs).length,json:backupJSON()});
+    const ks=(await SNAP.keys()).sort();while(ks.length>30){await SNAP.del(ks.shift());}}catch(e){}}
+async function shareBackup(){
+  const name='so-ky-thuat-saoluu-'+todayKey()+'.txt';const file=new File([backupJSON()],name,{type:'text/plain'});
+  if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:'Sao lưu Sổ Kỹ Thuật '+fmtFull(new Date())});stampBackup();toast('Đã gửi bản sao lưu');renderAll();}catch(e){if(e&&e.name!=='AbortError')toast('Không gửi được, hãy dùng Tải file');}}
+  else toast('Máy này không gửi trực tiếp được, hãy dùng “Tải file”');}
+const canShareFiles=()=>{try{return !isEmbedded&&!!navigator.canShare&&navigator.canShare({files:[new File(['x'],'a.txt',{type:'text/plain'})]});}catch(e){return false}};
+addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){clearTimeout(snapT);autoSnapshot();}});
 async function saveFile(name,text,mime){
   if(isEmbedded){let dl=null;try{dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null}catch(e){}
     if(!dl){toast('Trang này không tải file được. Hãy mở bản app trên điện thoại để tải.');return false;}
@@ -710,19 +734,33 @@ function openDataSheet(){
       <div class="kv"><span>Sao lưu gần nhất</span><span>${lb?esc(fmtFull(lb))+' '+fmtTime(lb):'Chưa có'}</span></div></div>
     <div class="hint">${where}</div>
     <fieldset><legend>Tải file về máy</legend>
-      <button class="btn pri" type="button" id="dlBackup">Tải file sao lưu đầy đủ (.json)</button>
+      <div class="row"><button class="btn pri" type="button" id="dlBackup">Tải file sao lưu đầy đủ (.json)</button>${canShareFiles()?'<button class="btn" type="button" data-share-backup>Gửi qua Zalo / Drive…</button>':''}</div>
       <div class="hint">Gồm khách hàng, tọa độ, các ca, ghi chú TK/BT, phân loại, mô hình nhà. Dùng file này để chuyển sang máy mới.</div>
       <div class="row"><button class="btn" type="button" id="dlCust">Danh sách khách (.csv)</button><button class="btn" type="button" id="dlJobs">Danh sách ca (.csv)</button></div>
       <div class="hint">File .csv mở được bằng Excel hoặc Google Sheets để xem, in hay gửi.</div>
     </fieldset>
+    ${snapOn()&&Store.mode==='local'?`<fieldset><legend>Bản lưu tự động theo ngày</legend>
+      <div class="hint">Mỗi ngày app tự lưu một bản trong máy (cập nhật liên tục đến cuối ngày, giữ 30 ngày gần nhất). Dùng khi lỡ xóa hoặc sửa nhầm.</div>
+      <div id="snapList" class="hist"><span class="hint">Đang tải…</span></div></fieldset>`:''}
     <fieldset><legend>Chuyển dữ liệu sang máy mới</legend>
       <ol class="steps"><li>Trên máy cũ: bấm <b>Tải file sao lưu đầy đủ</b>.</li><li>Gửi file sang máy mới (Zalo “My Documents”, Google Drive, email hoặc cáp).</li><li>Trên máy mới: mở app, bấm nút <b>Dữ liệu</b> → <b>Khôi phục từ file</b>, chọn file vừa nhận.</li></ol>
-      <label class="btn" for="restoreFile" style="cursor:pointer">Khôi phục từ file sao lưu…</label><input id="restoreFile" type="file" accept="application/json,.json" hidden>
+      <label class="btn" for="restoreFile" style="cursor:pointer">Khôi phục từ file sao lưu…</label><input id="restoreFile" type="file" accept="application/json,.json,text/plain,.txt" hidden>
       <div class="hint">Khôi phục là gộp: mục nào trong file mới hơn sẽ được cập nhật, dữ liệu đang có trên máy không bị xóa.</div>
       <div id="restoreOut"></div>
     </fieldset>`;
   openSheet('Sao lưu & chuyển dữ liệu',body,root=>{
-    const stamp=()=>{try{localStorage.setItem('sokythuat.lastBackup',new Date().toISOString())}catch(e){}};
+    const stamp=stampBackup;
+    const sl=$('#snapList',root);
+    if(sl){(async()=>{try{await autoSnapshot();const ks=(await SNAP.keys()).sort().reverse();
+      if(!ks.length){sl.innerHTML='<span class="hint">Chưa có bản lưu nào.</span>';return;}
+      const rows=[];for(const k of ks){const v=await SNAP.get(k);rows.push(`<div><span><b>${esc(fmtFull(k+'T12:00:00'))}</b> <span class="hint">${k===todayKey()?'hôm nay, ':''}lưu lúc ${fmtTime(v.at)} · ${v.nc} khách · ${v.nj} ca</span></span>
+        <span class="row" style="gap:6px"><button class="btn sm" type="button" data-snap-dl="${k}">Tải</button>${k===todayKey()?'':`<button class="btn sm" type="button" data-snap-rs="${k}">Khôi phục về ngày này</button>`}</span></div>`);}
+      sl.innerHTML=rows.join('');}catch(e){sl.innerHTML='<span class="hint bad">Trình duyệt không cho lưu bản tự động.</span>';}})();
+      sl.addEventListener('click',async e=>{const d=e.target.closest('[data-snap-dl]');if(d){const v=await SNAP.get(d.dataset.snapDl);if(v&&await saveFile('so-ky-thuat-saoluu-'+d.dataset.snapDl+'.json',v.json,'application/json'))toast('Đã tải bản lưu ngày '+fmtFull(d.dataset.snapDl+'T12:00:00'));return;}
+        const b=e.target.closest('[data-snap-rs]');if(!b)return;
+        if(!b.classList.contains('armed')){b.classList.add('armed','danger');b.textContent='Bấm lần nữa: thay toàn bộ dữ liệu hiện tại';setTimeout(()=>{b.classList.remove('armed','danger');b.textContent='Khôi phục về ngày này';},4000);return;}
+        const v=await SNAP.get(b.dataset.snapRs);if(!v)return;const d2=JSON.parse(v.json);
+        COLS.forEach(c=>{Store[c]=d2[c]||{};});Store.saveLocal();cov.model=null;closeSheet();renderAll();toast('Đã khôi phục dữ liệu về ngày '+fmtFull(b.dataset.snapRs+'T12:00:00'));});}
     $('#dlBackup',root).addEventListener('click',async()=>{if(await saveFile('so-ky-thuat-saoluu-'+todayKey()+'.json',backupJSON(),'application/json')){stamp();toast('Đã tải file sao lưu');renderAll();}});
     $('#dlCust',root).addEventListener('click',async()=>{if(await saveFile('khach-hang-'+todayKey()+'.csv',customersCSV(),'text/csv'))toast('Đã tải danh sách khách');});
     $('#dlJobs',root).addEventListener('click',async()=>{if(await saveFile('cac-ca-'+todayKey()+'.csv',jobsCSV(),'text/csv'))toast('Đã tải danh sách ca');});
@@ -1466,6 +1504,9 @@ $('#v-hom-nay').addEventListener('click',e=>{
   const c=e.target.closest('[data-cal]');if(c){const v=c.dataset.cal;if(v==='today'){selDay=todayKey();calMonth=selDay.slice(0,7);}else{const [Y,M]=calMonth.split('-').map(Number);const n=new Date(Y,M-1+(+v),1);calMonth=n.getFullYear()+'-'+pad2(n.getMonth()+1);}renderToday();return;}
 });
 $('#btnData').addEventListener('click',openDataSheet);
+document.addEventListener('click',async e=>{if(e.target.closest('[data-share-backup]')){shareBackup();return;}
+  if(e.target.closest('[data-dl-backup]')){if(await saveFile('so-ky-thuat-saoluu-'+todayKey()+'.json',backupJSON(),'application/json')){stampBackup();toast('Đã tải file sao lưu');renderAll();}}});
+setTimeout(autoSnapshot,4000);
 document.addEventListener('click',e=>{if(e.target.closest('[data-open-data]'))openDataSheet();});
 if(!isEmbedded&&navigator.storage&&navigator.storage.persist){navigator.storage.persist().catch(()=>{});}
 $('#btnNewCust').addEventListener('click',()=>openCustomer(null));
