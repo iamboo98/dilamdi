@@ -1,0 +1,21 @@
+SỔ KỸ THUẬT - HƯỚNG DẪN ĐƯA APP LÊN MẠNG (miễn phí, GitHub Pages)
+
+1. Vào github.com, đăng ký / đăng nhập.
+2. Bấm "+" > New repository. Tên: so-ky-thuat. Chọn Public. Bấm Create repository.
+3. Bấm "uploading an existing file". Kéo thả TẤT CẢ file trong thư mục này
+   (index.html, manifest.webmanifest, sw.js, icon-192.png, icon-512.png). Bấm Commit changes.
+4. Vào Settings > Pages. Mục "Branch" chọn main, thư mục / (root). Bấm Save.
+5. Chờ 1-2 phút. App chạy tại: https://<tên-github-của-bạn>.github.io/so-ky-thuat/
+
+CÀI LÊN ĐIỆN THOẠI
+- Android (Chrome): mở link trên > menu (3 chấm) > "Cài đặt ứng dụng" / "Thêm vào màn hình chính".
+- iPhone (Safari): mở link trên > nút Chia sẻ > "Thêm vào MH chính".
+- Lần đầu bấm "Lấy vị trí hiện tại (GPS)" chọn "Cho phép".
+
+CẬP NHẬT PHIÊN BẢN MỚI
+- Vào repository > Add file > Upload files > kéo index.html mới vào > Commit changes.
+- Dữ liệu trên điện thoại KHÔNG bị mất khi cập nhật.
+
+SAO LƯU
+- Bấm nút "Dữ liệu" > "Tải file sao lưu đầy đủ" mỗi tuần.
+- Đổi máy: tải file trên máy cũ, mở app trên máy mới > Dữ liệu > Khôi phục từ file.
