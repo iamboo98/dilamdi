@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="vi"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0B6E69">
+<meta name="theme-color" content="#13233A">
 <meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Sổ Kỹ Thuật">
 <link rel="manifest" href="manifest.webmanifest">
@@ -15,34 +15,37 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@500&display=swap">
 <style>
-/* Layout: công cụ dùng trên điện thoại — thanh tab dưới đáy (mobile) / trên đầu (desktop), mỗi tab là một bảng làm việc. */
+/* Layout: sổ tay hiện trường của kỹ thuật viên — thanh đầu xanh đậm như đồng phục, điểm nhấn cam phản quang, mỗi tab là một bảng làm việc. */
 :root{
-  --bg:#EEF2F1; --surface:#FFFFFF; --surface-2:#E3E9E7; --ink:#13201E; --muted:#576864; --line:#CFD8D5;
-  --accent:#0B6E69; --accent-ink:#FFFFFF; --fiber:#F2C230; --fiber-ink:#3A2C00;
-  --t-deploy:#0B6E69; --t-maint:#B5600A; --t-coord:#6A4BC4;
-  --ok:#2E7D3E; --warn:#A86A12; --bad:#BF342D; --ok-bg:#E2F1E5; --warn-bg:#FBEFD8; --bad-bg:#FBE3E1; --info-bg:#E1EFEE;
+  --bg:#EDF0F4; --surface:#FFFFFF; --surface-2:#E1E6ED; --ink:#0F1B2D; --muted:#55627A; --line:#CBD3DF;
+  --accent:#E8611A; --accent-ink:#FFFFFF; --fiber:#F2C230; --fiber-ink:#3A2C00;
+  --t-deploy:#1F5FBF; --t-maint:#7B47C9; --t-coord:#0E8A82;
+  --ok:#23804A; --warn:#A8670E; --bad:#C0322B; --ok-bg:#E0F2E7; --warn-bg:#FCEFD9; --bad-bg:#FBE2E0; --info-bg:#FDEBDF;
+  --band:#13233A; --band-ink:#FFFFFF; --band-muted:#A9B7CC;
   --f-display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
   --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   --r:10px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0E1514; --surface:#162120; --surface-2:#1F2C2A; --ink:#E4EDEB; --muted:#93A6A1; --line:#2B3B38;
-  --accent:#43BBB1; --accent-ink:#04201E; --fiber:#F2C230; --fiber-ink:#2A2000;
-  --t-deploy:#43BBB1; --t-maint:#E8A23A; --t-coord:#A68FF2;
-  --ok:#62C580; --warn:#E3AC4E; --bad:#F2766E; --ok-bg:#183424; --warn-bg:#352812; --bad-bg:#3A1A18; --info-bg:#173230;
+  --bg:#0A111B; --surface:#121C2A; --surface-2:#1A2638; --ink:#E6ECF4; --muted:#91A1B9; --line:#26354A;
+  --accent:#FF8340; --accent-ink:#1A0B02; --fiber:#F2C230; --fiber-ink:#2A2000;
+  --t-deploy:#6EA2F2; --t-maint:#B48CF2; --t-coord:#3FC2B8;
+  --ok:#5CC285; --warn:#E6AE4E; --bad:#F2766E; --ok-bg:#16301F; --warn-bg:#352812; --bad-bg:#3A1A18; --info-bg:#3A2213;
+  --band:#060C15; --band-ink:#FFFFFF; --band-muted:#8C9BB2;
   color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0E1514; --surface:#162120; --surface-2:#1F2C2A; --ink:#E4EDEB; --muted:#93A6A1; --line:#2B3B38;
-  --accent:#43BBB1; --accent-ink:#04201E; --fiber:#F2C230; --fiber-ink:#2A2000;
-  --t-deploy:#43BBB1; --t-maint:#E8A23A; --t-coord:#A68FF2;
-  --ok:#62C580; --warn:#E3AC4E; --bad:#F2766E; --ok-bg:#183424; --warn-bg:#352812; --bad-bg:#3A1A18; --info-bg:#173230;
+  --bg:#0A111B; --surface:#121C2A; --surface-2:#1A2638; --ink:#E6ECF4; --muted:#91A1B9; --line:#26354A;
+  --accent:#FF8340; --accent-ink:#1A0B02; --fiber:#F2C230; --fiber-ink:#2A2000;
+  --t-deploy:#6EA2F2; --t-maint:#B48CF2; --t-coord:#3FC2B8;
+  --ok:#5CC285; --warn:#E6AE4E; --bad:#F2766E; --ok-bg:#16301F; --warn-bg:#352812; --bad-bg:#3A1A18; --info-bg:#3A2213;
+  --band:#060C15; --band-ink:#FFFFFF; --band-muted:#8C9BB2;
   color-scheme:dark}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html,body{background:var(--bg);color:var(--ink)}
 body{font-family:var(--f-body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--band)}
 button,input,select,textarea{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:.92em}
@@ -231,6 +234,57 @@ label.f textarea{min-height:70px;resize:vertical}
 .rfgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:6px}
 .rfgrid .inline-in{justify-content:space-between}
 .rfgrid .inline-in span{display:flex;align-items:center;gap:4px}
+.rcard{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.rcard .stripe{width:5px;flex:none;background:var(--tc)}
+.rc-main{flex:1;min-width:0;padding:10px 14px;display:flex;flex-direction:column;gap:6px}
+.stars{display:inline-flex;gap:2px}
+.star{border:0;background:none;font-size:26px;line-height:1;color:var(--line);cursor:pointer;padding:0 2px}
+.star.on{color:var(--fiber)}
+.kpis.k3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.day-layout .kpis.k3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.coordbig{font-size:18px;font-weight:600;letter-spacing:.01em;user-select:all}
+.top{background:var(--band);color:var(--band-ink);border-bottom:3px solid var(--accent)}
+.brand{color:var(--band-ink);line-height:1}
+.brand>span{display:flex;flex-direction:column;gap:2px}
+.brand small{font-family:var(--f-body);font-size:11px;font-weight:500;color:var(--band-muted);letter-spacing:.02em}
+.brand-mark{background:rgba(255,255,255,.12)}
+.brand-mark::before{box-shadow:0 0 0 3px var(--accent)}
+nav.tabs a{color:var(--band-muted)}
+nav.tabs a:hover{color:var(--band-ink)}
+nav.tabs a[aria-current="page"]{color:var(--band-ink);background:rgba(255,255,255,.1);box-shadow:inset 0 -3px 0 var(--accent)}
+.sync{color:var(--band-muted)}
+#btnData{background:transparent;color:var(--band-ink);border-color:rgba(255,255,255,.28)}
+.btn.pri{box-shadow:0 2px 0 rgba(0,0,0,.18)}
+.vtitle{text-transform:uppercase;letter-spacing:.01em}
+.ktv{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.ktv-tape{height:8px;background:repeating-linear-gradient(-45deg,var(--accent) 0 12px,var(--fiber) 12px 24px)}
+.ktv-body{display:flex;align-items:center;gap:12px;padding:12px 14px}
+.ktv-av{width:48px;height:48px;border-radius:10px;background:var(--band);color:var(--band-ink);display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:22px;flex:none;box-shadow:inset 0 -4px 0 var(--accent)}
+.ktv-id{display:flex;flex-direction:column;min-width:0;flex:1}
+.ktv-id b{font-family:var(--f-display);font-size:22px;line-height:1.1;text-transform:uppercase}
+.ktv-stats{display:flex;flex-wrap:wrap;gap:6px 16px;padding:8px 14px;border-top:1px dashed var(--line);font-size:13px;color:var(--muted)}
+.ktv-stats b{font-family:var(--f-display);font-size:18px;color:var(--ink);margin-right:3px}
+.ktv-stats .warn b{color:var(--accent)}
+.quick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.qbtn{display:flex;align-items:center;gap:12px;padding:14px;border-radius:var(--r);border:0;background:var(--tc);color:#fff;cursor:pointer;text-align:left;box-shadow:0 3px 0 rgba(0,0,0,.2)}
+.qbtn:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.2)}
+.qbtn svg{width:26px;height:26px;flex:none}
+.qbtn span{display:flex;flex-direction:column;line-height:1.15}
+.qbtn b{white-space:nowrap;font-family:var(--f-display);font-size:clamp(17px,5vw,22px);text-transform:uppercase;letter-spacing:.01em}
+.qbtn small{font-size:12px;opacity:.85}
+:root[data-theme="dark"] .qbtn{color:#0A111B}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .qbtn{color:#0A111B}}
+.kpi{border-top-width:4px}
+.thumbs{display:flex;flex-wrap:wrap;gap:8px}
+.thumbw{position:relative}
+.thumb{width:84px;height:84px;padding:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface-2);cursor:zoom-in}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumbx{position:absolute;top:-6px;right:-6px;min-width:24px;height:24px;border-radius:12px;border:0;background:var(--bad);color:#fff;font-weight:700;cursor:pointer;padding:0 6px;font-size:13px}
+.ktv-av{overflow:hidden}
+.ktv-av img{width:100%;height:100%;object-fit:cover;display:block}
+.lightbox{position:fixed;inset:0;z-index:90;background:rgba(3,8,14,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px))}
+.lightbox img{max-width:100%;max-height:calc(100% - 64px);object-fit:contain;border-radius:6px}
+.lb-bar{color:#fff;font-size:13px;justify-content:center}
 .flagwarn{border-radius:6px;padding:6px 10px;font-size:13px;background:var(--warn-bg)}
 .flagwarn.ham{background:var(--bad-bg)}
 .flagcard.ham{border-left:4px solid var(--bad)} .flagcard.luuy{border-left:4px solid var(--warn)}
@@ -243,10 +297,10 @@ label.f textarea{min-height:70px;resize:vertical}
 
 <header class="top">
   <div class="top-in">
-    <div class="brand"><span class="brand-mark" aria-hidden="true"></span>Sổ Kỹ Thuật</div>
+    <div class="brand"><span class="brand-mark" aria-hidden="true"></span><span>Sổ Kỹ Thuật<small id="brandSub">Kỹ thuật viên hiện trường</small></span></div>
     <nav class="tabs" aria-label="Chuyển mục">
       <a href="#hom-nay" data-v="hom-nay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Lịch ngày</a>
-      <a href="#cong-viec" data-v="cong-viec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg>Các ca</a>
+      <a href="#danh-gia" data-v="danh-gia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>Đánh giá</a>
       <a href="#toa-do" data-v="toa-do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Tọa độ</a>
       <a href="#tra-cuu" data-v="tra-cuu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8M8 10.5h5M10.5 8v5"/></svg>Tra cứu</a>
       <a href="#phan-loai" data-v="phan-loai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21V4h11l-1.5 4L15 12H4"/></svg>Phân loại</a>
@@ -260,38 +314,46 @@ label.f textarea{min-height:70px;resize:vertical}
 <main>
   <!-- HÔM NAY -->
   <section class="view" id="v-hom-nay" hidden>
+    <div class="ktv" id="ktvBadge"></div>
     <div class="head-row">
       <div><div class="eyebrow" id="todayDow"></div><h1 class="vtitle" id="todayTitle"></h1></div>
       <div class="row">
         <button class="btn" id="btnReport" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg>Sao chép báo cáo ngày</button>
-        <button class="btn pri" type="button" data-new-job>+ Ghi ca hoàn thành</button>
       </div>
+    </div>
+    <div class="quick">
+      <button class="qbtn c-trien_khai" type="button" data-new-job="trien_khai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span><b>Ca triển khai</b><small>Lắp mới</small></span></button>
+      <button class="qbtn c-bao_tri" type="button" data-new-job="bao_tri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg><span><b>Ca bảo trì</b><small>Xử lý sự cố</small></span></button>
     </div>
     <div class="day-layout">
       <div class="cal" id="cal"></div>
       <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
-        <div class="kpis" id="kpis"></div>
+        <div class="kpis k3" id="kpis"></div>
         <div id="localNotice"></div>
       </div>
     </div>
     <div class="sec-title"><span id="dayListTitle">Việc trong ngày</span> <small id="todayCount"></small></div>
     <div class="list" id="todayList"></div>
-    <div class="sec-title">Tọa độ đã lấy <small id="coordCount"></small></div>
-    <div id="dayCoords"></div>
     <div id="backupBox"></div>
   </section>
 
   <!-- CÔNG VIỆC -->
-  <section class="view" id="v-cong-viec" hidden>
+  <section class="view" id="v-danh-gia" hidden>
     <div class="head-row">
-      <div><div class="eyebrow">Triển khai · Bảo trì</div><h1 class="vtitle">Ca đã hoàn thành</h1></div>
-      <button class="btn pri" type="button" data-new-job>+ Ghi ca hoàn thành</button>
+      <div><div class="eyebrow">Hi FPT</div><h1 class="vtitle">Xin đánh giá</h1></div>
+      <div class="row"><button class="btn sm" type="button" data-rm="-1" aria-label="Tháng trước">‹</button><b id="rateMonth" style="min-width:110px;text-align:center"></b><button class="btn sm" type="button" data-rm="1" aria-label="Tháng sau">›</button></div>
     </div>
-    <div class="toolbar">
-      <input class="search" id="jobSearch" type="search" placeholder="Tìm tên khách, số HĐ, địa chỉ…">
-    </div>
-    <div class="chips" id="jobTypeChips"></div>
-    <div class="list" id="jobList"></div>
+    <div class="kpis" id="rateKpis"></div>
+    <div class="toolbar"><input class="search" id="rateSearch" type="search" placeholder="Tìm tên khách, số HĐ, SĐT…"></div>
+    <div class="chips" id="rateChips"></div>
+    <div class="list" id="rateList"></div>
+    <details class="panel" id="rateTplBox"><summary style="cursor:pointer;font-weight:600">Lời nhắn xin đánh giá</summary>
+      <div class="hint">Mỗi loại ca một lời nhắn. Dùng {ten} (tên khách), {hd} (số HĐ), {ngay} (ngày làm), {loi} (lỗi khách báo, chỉ ca bảo trì). Lời nhắn được lưu trên máy này.</div>
+      <label class="f" style="color:var(--t-deploy)">Ca triển khai<textarea id="rateTpl_tk" data-tk="trien_khai" style="width:100%;min-height:120px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface);color:var(--ink)"></textarea></label>
+      <div class="row"><button class="btn sm" type="button" data-tpl-reset="trien_khai">Về lời nhắn mẫu</button></div>
+      <label class="f" style="color:var(--t-maint)">Ca bảo trì<textarea id="rateTpl_bt" data-tk="bao_tri" style="width:100%;min-height:120px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface);color:var(--ink)"></textarea></label>
+      <div class="row"><button class="btn sm" type="button" data-tpl-reset="bao_tri">Về lời nhắn mẫu</button></div>
+    </details>
   </section>
 
   <!-- TỌA ĐỘ -->
@@ -300,19 +362,7 @@ label.f textarea{min-height:70px;resize:vertical}
       <div><div class="eyebrow">Khách hàng</div><h1 class="vtitle">Tra cứu tọa độ</h1></div>
       <button class="btn pri" type="button" id="btnNewCust">+ Thêm khách</button>
     </div>
-    <div class="toolbar">
-      <input class="search" id="custSearch" type="search" placeholder="Tìm tên, số HĐ, mã tập điểm…">
-      <div class="chips" id="custChips">
-        <button class="chip" type="button" data-cf="" aria-pressed="true">Tất cả</button>
-        <button class="chip" type="button" data-cf="missing" aria-pressed="false">Chưa có tọa độ</button>
-      </div>
-    </div>
-    <div class="row">
-      <label class="inline-in">Tọa độ lấy ngày <input id="custDate" type="date" style="width:auto"></label>
-      <button class="btn sm" type="button" id="custToday">Hôm nay</button>
-      <button class="btn sm" type="button" id="custDateClear" hidden>Bỏ lọc ngày</button>
-      <button class="btn sm" type="button" id="custDateCopy" hidden>Chép tọa độ ngày này</button>
-    </div>
+    <input class="search" id="custSearch" type="search" placeholder="Nhập tên khách, số HĐ, SĐT hoặc mã tập điểm…" style="flex:none">
     <div class="list" id="custList"></div>
   </section>
 
@@ -548,7 +598,7 @@ function renderSync(){
 }
 
 /* ===================== Điều hướng ===================== */
-const VIEWS=['hom-nay','cong-viec','toa-do','tra-cuu','phan-loai','vung-phu'];
+const VIEWS=['hom-nay','danh-gia','toa-do','tra-cuu','phan-loai','vung-phu'];
 let view='hom-nay';
 function route(){
   const h=location.hash.replace('#','');view=VIEWS.includes(h)?h:'hom-nay';
@@ -562,7 +612,7 @@ addEventListener('hashchange',route);
 function renderAll(){
   renderSync();
   if(view==='hom-nay') renderToday();
-  if(view==='cong-viec') renderJobs();
+  if(view==='danh-gia') renderRates();
   if(view==='toa-do') renderCustomers();
   if(view==='tra-cuu') renderLookup();
   if(view==='phan-loai') renderFlags();
@@ -589,10 +639,10 @@ function jobCard(j,showDate){
       <span class="job-top"><span class="tag">${esc(T.label)}</span><span class="time">${showDate?esc(fmtDate(doneAt(j)))+' · ':''}${fmtTime(doneAt(j))}</span></span>
       <span class="job-name">${esc(c.name)} ${flagPill(c)}</span>
       <span class="job-sub">${c.contract?'HĐ '+esc(c.contract)+' · ':''}${esc(c.address||'Chưa có địa chỉ')}</span>
-      <span class="job-meta">
+      <span class="job-meta">${(j.photos||[]).length?`<span class="pill s-cho">${j.photos.length} ảnh</span>`:''}
         ${j.issue&&j.type==='bao_tri'?`<span>${esc(j.issue)}</span>`:''}
         ${rx?`<span class="pill ${rx.cls}">Rx <span class="mono">${esc(j.rx)}</span> dBm</span>`:''}
-        ${hasCoord(j)?'<span class="pill p-ok">Có tọa độ</span>':!hasCoord(c)?'<span class="pill p-warn">Chưa có tọa độ</span>':''}
+        
       </span>
     </span></button>`;
 }
@@ -620,32 +670,53 @@ function renderCal(){
   const start=new Date(first);start.setDate(1-((first.getDay()+6)%7));const tk=todayKey();
   let cells='';for(let i=0;i<42;i++){const d=new Date(start);d.setDate(start.getDate()+i);const k=dayKey(d);const inM=d.getMonth()===M-1;
     if(i>=35&&!inM&&i%7===0)break;
-    const x=ix[k];const dots=x?`<span class="dots">${x.jobs?`<i style="background:var(--t-deploy)"></i>`:''}${x.coords?`<i style="background:var(--t-coord)"></i>`:''}</span>`:'<span class="dots"></span>';
+    const x=ix[k];const dots=x&&x.jobs?`<span class="dots">${x.jobs?`<i style="background:var(--t-deploy)"></i>`:''}</span>`:'<span class="dots"></span>';
     cells+=`<button type="button" class="cal-d${inM?'':' out'}${k===tk?' today':''}" data-day="${k}" aria-pressed="${k===selDay}" aria-label="${d.toLocaleDateString('vi-VN')}${x?`, ${x.jobs} ca, ${x.coords} tọa độ`:''}"><span>${d.getDate()}</span>${dots}</button>`;}
   const ml=first.toLocaleDateString('vi-VN',{month:'long',year:'numeric'});
   $('#cal').innerHTML=`<div class="cal-h"><button class="btn sm" type="button" data-cal="-1" aria-label="Tháng trước">‹</button><b style="text-transform:capitalize">${esc(ml)}</b><button class="btn sm" type="button" data-cal="1" aria-label="Tháng sau">›</button></div>
     <div class="cal-g">${['T2','T3','T4','T5','T6','T7','CN'].map(t=>`<span class="cal-w">${t}</span>`).join('')}${cells}</div>
-    <div class="row" style="justify-content:space-between"><span class="hint"><i class="lg" style="background:var(--t-deploy)"></i> có ca <i class="lg" style="background:var(--t-coord)"></i> có lấy tọa độ</span><span class="row" style="gap:6px">${selDay!==tk?'<button class="btn sm" type="button" data-cal="today">Về hôm nay</button>':''}<button class="btn sm" type="button" data-calopen="0">Thu gọn</button></span></div>`;
+    <div class="row" style="justify-content:space-between"><span class="hint"><i class="lg" style="background:var(--t-deploy)"></i> có ca</span><span class="row" style="gap:6px">${selDay!==tk?'<button class="btn sm" type="button" data-cal="today">Về hôm nay</button>':''}<button class="btn sm" type="button" data-calopen="0">Thu gọn</button></span></div>`;
 }
 function dayJobs(day){return jobsArr().filter(j=>doneAt(j)&&dayKey(doneAt(j))===day).reverse();}
 function dayCoords(day){const rows=[];Object.values(Store.customers).forEach(c=>coordHist(c).filter(e=>dayKey(e.at)===day).forEach(e=>rows.push({c,e})));return rows.sort((a,b)=>String(a.e.at).localeCompare(String(b.e.at)));}
+function profile(){try{return JSON.parse(localStorage.getItem('sokythuat.profile')||'{}')}catch(e){return {}}}
+function renderBadge(today){
+  const pf=profile();const ini=(pf.name||'KTV').trim().split(/\s+/).slice(-2).map(w=>w[0]).join('').toUpperCase();
+  const all=jobsArr();const waiting=all.filter(j=>rateOf(j).st==='chua'&&daysSince(doneAt(j))<=7).length;
+  $('#brandSub').textContent=pf.name?'KTV '+pf.name+(pf.code?' · '+pf.code:''):'Kỹ thuật viên hiện trường';
+  $('#ktvBadge').innerHTML=`<div class="ktv-tape" aria-hidden="true"></div><div class="ktv-body">
+    <span class="ktv-av">${pf.photo?`<img src="${pf.photo}" alt="Ảnh ${esc(pf.name||'KTV')}">`:esc(ini)}</span>
+    <div class="ktv-id"><span class="eyebrow">Thẻ kỹ thuật viên</span><b>${pf.name?esc(pf.name):'Chưa nhập tên'}</b>
+      <span class="hint">${[pf.code?'MNV <span class="mono">'+esc(pf.code)+'</span>':'',esc(pf.team||''),pf.phone?'<span class="mono">'+esc(pf.phone)+'</span>':''].filter(Boolean).join(' · ')||'Bấm “Sửa” để nhập mã NV, đội, khu vực'}</span></div>
+    <button class="btn sm" type="button" id="ktvEdit">Sửa</button></div>
+    <div class="ktv-stats"><span><b>${today.filter(j=>j.type==='trien_khai').length}</b> TK hôm nay</span><span><b>${today.filter(j=>j.type==='bao_tri').length}</b> BT hôm nay</span><span class="${waiting?'warn':''}"><b>${waiting}</b> ca chưa xin đánh giá</span></div>`;
+}
+function openProfile(){const pf=profile();
+  openSheet('Thẻ kỹ thuật viên',`<div class="grid2"><label class="f">Họ tên<input id="pfName" value="${esc(pf.name||'')}" autocomplete="name"></label><label class="f">Mã nhân viên<input id="pfCode" value="${esc(pf.code||'')}" class="mono"></label>
+    <label class="f">Đội / khu vực<input id="pfTeam" value="${esc(pf.team||'')}" placeholder="VD: Đội 3 · Quận Gò Vấp"></label><label class="f">Số điện thoại<input id="pfPhone" type="tel" value="${esc(pf.phone||'')}"></label></div>
+    <div class="row" style="align-items:center;gap:12px"><span class="ktv-av" id="pfAv">${pf.photo?`<img src="${pf.photo}" alt="">`:'KTV'}</span>
+      <label class="btn sm" for="pfPhoto" style="cursor:pointer">Chọn ảnh chân dung</label><input id="pfPhoto" type="file" accept="image/*" hidden><button class="btn sm" type="button" id="pfPhotoDel" ${pf.photo?'':'hidden'}>Bỏ ảnh</button></div>
+    <div class="hint">Thông tin này hiện trên thẻ ở Lịch ngày và ở đầu báo cáo ngày.</div>`,root=>{
+    let photo=pf.photo||'';
+    $('#pfPhoto',root).addEventListener('change',async e=>{const fl=e.target.files[0];e.target.value='';if(!fl)return;try{photo=await avatarFrom(fl);$('#pfAv',root).innerHTML=`<img src="${photo}" alt="">`;$('#pfPhotoDel',root).hidden=false;}catch(err){toast('Không đọc được ảnh này');}});
+    $('#pfPhotoDel',root).addEventListener('click',()=>{photo='';$('#pfAv',root).textContent='KTV';$('#pfPhotoDel',root).hidden=true;});
+    $('#pfSave',root).addEventListener('click',()=>{const v={name:$('#pfName',root).value.trim(),code:$('#pfCode',root).value.trim(),team:$('#pfTeam',root).value.trim(),phone:$('#pfPhone',root).value.trim(),photo};
+      try{localStorage.setItem('sokythuat.profile',JSON.stringify(v))}catch(e){}closeSheet();renderAll();toast('Đã lưu thẻ KTV');});
+  },'<span></span><div class="row"><button class="btn" type="button" data-close>Hủy</button><button class="btn pri" type="button" id="pfSave">Lưu</button></div>');}
 function renderToday(){
   const tk=todayKey();const isToday=selDay===tk;const sd=new Date(selDay+'T12:00:00');
   $('#todayDow').textContent=(isToday?'Hôm nay · ':'')+sd.toLocaleDateString('vi-VN',{weekday:'long'});
   $('#todayTitle').textContent='Ngày '+sd.toLocaleDateString('vi-VN',{day:'2-digit',month:'2-digit',year:'numeric'});
   renderCal();
-  const all=jobsArr();const today=dayJobs(selDay);
-  const coords=dayCoords(selDay);
+  const all=jobsArr();const today=dayJobs(selDay);renderBadge(dayJobs(todayKey()));
   $('#kpis').innerHTML=Object.entries(TYPES).map(([k,T])=>{
     const n=today.filter(j=>j.type===k).length;const m=all.filter(j=>j.type===k&&dayKey(doneAt(j)).slice(0,7)===selDay.slice(0,7)).length;
     return `<div class="kpi c-${k}"><span class="tag">${T.label}</span><span class="n">${n}</span><span class="hint">ca trong ngày · tháng này ${m}</span></div>`;
-  }).join('')+`<div class="kpi"><span class="tag">Tổng ca</span><span class="n">${today.length}</span><span class="hint">trong ngày · tháng này ${all.filter(j=>dayKey(doneAt(j)).slice(0,7)===selDay.slice(0,7)).length}</span></div>`+`<div class="kpi c-toa_do"><span class="tag">Tọa độ đã lấy</span><span class="n">${coords.length}</span><span class="hint">${coords.filter(r=>r.e.src==='gps').length} lần bằng GPS</span></div>`;
+  }).join('')+`<div class="kpi"><span class="tag">Tổng ca</span><span class="n">${today.length}</span><span class="hint">trong ngày · tháng này ${all.filter(j=>dayKey(doneAt(j)).slice(0,7)===selDay.slice(0,7)).length}</span></div>`;
   $('#dayListTitle').textContent=isToday?'Ca hoàn thành hôm nay':'Ca hoàn thành trong ngày';
   $('#todayCount').textContent=today.length?today.length+' ca':'';
   $('#todayList').innerHTML=today.length?today.map(j=>jobCard(j,false)).join(''):
     `<div class="empty">${isToday?'Chưa ghi ca nào hôm nay.':'Không có ca nào trong ngày này.'}<button class="btn pri" type="button" data-new-job>+ Ghi ca hoàn thành</button></div>`;
-  $('#coordCount').textContent=coords.length?coords.length+' lần':'';
-  $('#dayCoords').innerHTML=coords.length?`<div class="infobox hist">${coords.map(({c,e})=>`<div style="cursor:pointer" data-cust="${esc(c.id)}"><span><b>${esc(c.name)}</b> <span class="hint">${fmtTime(e.at)}${c.contract?' · HĐ '+esc(c.contract):''} · ${e.src==='gps'?'GPS'+(e.acc?' ±'+e.acc+' m':''):'dán / nhập tay'}</span></span><span class="mono">${(+e.lat).toFixed(6)}, ${(+e.lng).toFixed(6)}</span></div>`).join('')}</div>`:'<div class="hint">Không lấy tọa độ nào trong ngày này.</div>';
   {const lb=lastBackup();const has=Object.keys(Store.customers).length||Object.keys(Store.jobs).length;
    const lastEdit=[...Object.values(Store.jobs),...Object.values(Store.customers)].reduce((a,o)=>String(o.updatedAt||'')>a?String(o.updatedAt):a,'');
    const unsaved=lastEdit&&(!lb||lastEdit>lb);const late=new Date().getHours()>=17;const fromBefore=unsaved&&dayKey(lastEdit)<todayKey();
@@ -656,6 +727,7 @@ function renderToday(){
 function dayReport(){
   const day=selDay;const list=dayJobs(day);const sd=new Date(day+'T12:00:00');
   let out=`BÁO CÁO NGÀY ${sd.toLocaleDateString('vi-VN',{day:'2-digit',month:'2-digit',year:'numeric'})}\n`;
+  {const pf=profile();if(pf.name)out+=`KTV: ${pf.name}${pf.code?' ('+pf.code+')':''}${pf.team?' – '+pf.team:''}\n`;}
   Object.entries(TYPES).forEach(([k,T])=>{
     const js=list.filter(j=>j.type===k);if(!js.length)return;
     out+=`\n${T.label.toUpperCase()}: ${js.length} ca\n`;
@@ -663,12 +735,10 @@ function dayReport(){
       out+=`- ${fmtTime(doneAt(j))} ${c.contract?'HĐ '+c.contract+' – ':''}${c.name}`;if(j.type==='bao_tri'&&j.issue)out+=` – ${j.issue}`;
       if(j.rx!==''&&j.rx!=null)out+=` – Rx ${j.rx} dBm`;
       if(j.down)out+=` – ${j.down}/${j.up||'?'} Mbps`;
-      if(hasCoord(j))out+=` – ${(+j.lat).toFixed(6)}, ${(+j.lng).toFixed(6)}`;
+      {const r=rateOf(j);if(r.st!=='chua')out+=` – Hi FPT: ${RATE_ST[r.st].l}${r.st==='danhgia'&&r.stars?' '+r.stars+'★':''}`;}
       if(j.note)out+=` – ${j.note}`;out+='\n';});
   });
-  const co=dayCoords(day).filter(({e})=>!e.jobId||!list.some(j=>j.id===e.jobId));
-  if(co.length){out+=`\nTỌA ĐỘ CẬP NHẬT THÊM: ${co.length}\n`;co.forEach(({c,e})=>{out+=`- ${fmtTime(e.at)} ${c.contract?'HĐ '+c.contract+' – ':''}${c.name}: ${(+e.lat).toFixed(6)}, ${(+e.lng).toFixed(6)}${e.src==='gps'&&e.acc?' (GPS ±'+e.acc+' m)':''}\n`;});}
-  if(!list.length&&!co.length) out+='\nKhông có ca nào trong ngày.\n';
+  if(!list.length) out+='\nKhông có ca nào trong ngày.\n';
   return out;
 }
 /* ===================== SAO LƯU / CHUYỂN DỮ LIỆU ===================== */
@@ -689,7 +759,7 @@ async function autoSnapshot(){if(!snapOn()||Store.mode!=='local')return;
   try{await SNAP.put(todayKey(),{at:new Date().toISOString(),nc:Object.keys(Store.customers).length,nj:Object.keys(Store.jobs).length,json:backupJSON()});
     const ks=(await SNAP.keys()).sort();while(ks.length>30){await SNAP.del(ks.shift());}}catch(e){}}
 async function shareBackup(){
-  const name='so-ky-thuat-saoluu-'+todayKey()+'.txt';const file=new File([backupJSON()],name,{type:'text/plain'});
+  const name='so-ky-thuat-saoluu-'+todayKey()+'.txt';const file=new File([await backupJSONFull()],name,{type:'text/plain'});
   if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:'Sao lưu Sổ Kỹ Thuật '+fmtFull(new Date())});stampBackup();toast('Đã gửi bản sao lưu');renderAll();}catch(e){if(e&&e.name!=='AbortError')toast('Không gửi được, hãy dùng Tải file');}}
   else toast('Máy này không gửi trực tiếp được, hãy dùng “Tải file”');}
 const canShareFiles=()=>{try{return !isEmbedded&&!!navigator.canShare&&navigator.canShare({files:[new File(['x'],'a.txt',{type:'text/plain'})]});}catch(e){return false}};
@@ -702,7 +772,33 @@ async function saveFile(name,text,mime){
   try{const blob=new Blob([text],{type:mime});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();
     setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},2000);return true;}catch(e){toast('Không tải được file');return false;}
 }
-function backupJSON(){return JSON.stringify({app:'so-ky-thuat',version:2,exportedAt:new Date().toISOString(),counts:{customers:Object.keys(Store.customers).length,jobs:Object.keys(Store.jobs).length,houses:Object.keys(Store.houses).length},jobs:Store.jobs,customers:Store.customers,houses:Store.houses},null,1);}
+/* ----- Ảnh kỹ thuật (lưu trong máy bằng IndexedDB) ----- */
+const PH={p:null,
+  open(){return this.p||(this.p=new Promise((res,rej)=>{const r=indexedDB.open('sokythuat-photos',1);r.onupgradeneeded=()=>r.result.createObjectStore('p',{keyPath:'id'});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);}));},
+  async tx(mode,fn){const db=await this.open();return new Promise((res,rej)=>{const t=db.transaction('p',mode);const r=fn(t.objectStore('p'));t.oncomplete=()=>res(r&&r.result);t.onerror=()=>rej(t.error);});},
+  put(o){return this.tx('readwrite',st=>st.put(o));},get(id){return this.tx('readonly',st=>st.get(id));},del(id){return this.tx('readwrite',st=>st.delete(id));},all(){return this.tx('readonly',st=>st.getAll());}};
+function loadImg(file){return new Promise((res,rej)=>{const u=URL.createObjectURL(file);const im=new Image();im.onload=()=>res(im);im.onerror=()=>{URL.revokeObjectURL(u);rej(new Error('img'));};im.src=u;});}
+async function compressPhoto(file,stamp){const im=await loadImg(file);let w=im.naturalWidth,h=im.naturalHeight;const k=Math.min(1,1600/Math.max(w,h));w=Math.round(w*k);h=Math.round(h*k);
+  const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');x.drawImage(im,0,0,w,h);URL.revokeObjectURL(im.src);
+  if(stamp){const fs=Math.max(14,Math.round(w/45));x.font=`600 ${fs}px system-ui,sans-serif`;const lines=stamp.split('\n');const bh=fs*1.35*lines.length+fs*.8;
+    x.fillStyle='rgba(0,0,0,.55)';x.fillRect(0,h-bh,w,bh);x.fillStyle='#fff';x.textBaseline='top';lines.forEach((l,i)=>x.fillText(l,fs*.6,h-bh+fs*.4+i*fs*1.35));
+    x.fillStyle='#E8611A';x.fillRect(0,h-bh,Math.max(6,fs*.3),bh);}
+  return c.toDataURL('image/jpeg',.72);}
+async function avatarFrom(file){const im=await loadImg(file);const s0=Math.min(im.naturalWidth,im.naturalHeight);const c=document.createElement('canvas');c.width=c.height=256;
+  c.getContext('2d').drawImage(im,(im.naturalWidth-s0)/2,(im.naturalHeight-s0)/2,s0,s0,0,0,256,256);URL.revokeObjectURL(im.src);return c.toDataURL('image/jpeg',.8);}
+async function fillThumbs(root){for(const box of $$('[data-photos]',root||document)){const ids=(box.dataset.photos||'').split(',').filter(Boolean);if(!ids.length){box.innerHTML='';continue;}
+  const out=[];for(const id of ids){try{const p=await PH.get(id);if(p)out.push(`<button type="button" class="thumb" data-photo="${esc(id)}"><img src="${p.data}" alt="Ảnh kỹ thuật ${esc(fmtFull(p.at))}"></button>`);}catch(e){}}
+  box.innerHTML=out.join('')||'<span class="hint">Ảnh không có trên máy này.</span>';}}
+async function openPhoto(id){const p=await PH.get(id);if(!p)return;const lb=document.createElement('div');lb.className='lightbox';
+  lb.innerHTML=`<img src="${p.data}" alt="Ảnh kỹ thuật"><div class="row lb-bar"><span>${esc(fmtFull(p.at))} ${fmtTime(p.at)}</span><button class="btn sm" type="button" data-lbdl>Tải ảnh</button><button class="btn sm pri" type="button" data-lbx>Đóng</button></div>`;
+  lb.addEventListener('click',async e=>{if(e.target===lb||e.target.closest('[data-lbx]'))lb.remove();
+    if(e.target.closest('[data-lbdl]')){const b=await (await fetch(p.data)).blob();saveFileBlob('anh-ky-thuat-'+dayKey(p.at)+'-'+p.id.slice(-4)+'.jpg',b);}});document.body.appendChild(lb);}
+async function saveFileBlob(name,blob){if(isEmbedded){let dl=null;try{dl=await window.claude.use('downloads')}catch(e){}if(!dl){toast('Trang này không tải file được');return;}try{await dl.save({filename:name,data:blob});}catch(e){}return;}
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},2000);}
+async function cleanOrphanPhotos(){try{const all=await PH.all();const keep=new Set();Object.values(Store.jobs).forEach(j=>(j.photos||[]).forEach(id=>keep.add(id)));
+  for(const p of all){if(!keep.has(p.id)&&Date.now()-new Date(p.at).getTime()>86400000)await PH.del(p.id);}}catch(e){}}
+async function backupJSONFull(){const d=JSON.parse(backupJSON());try{const all=await PH.all();const keep=new Set();Object.values(Store.jobs).forEach(j=>(j.photos||[]).forEach(id=>keep.add(id)));d.photos=all.filter(p=>keep.has(p.id));d.counts.photos=d.photos.length;}catch(e){}return JSON.stringify(d);}
+function backupJSON(){return JSON.stringify({app:'so-ky-thuat',version:2,exportedAt:new Date().toISOString(),counts:{customers:Object.keys(Store.customers).length,jobs:Object.keys(Store.jobs).length,houses:Object.keys(Store.houses).length},jobs:Store.jobs,customers:Store.customers,houses:Store.houses,profile:profile()},null,1);}
 const csvCell=v=>{v=v==null?'':String(v);return /[",\n;]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
 const toCSV=rows=>'﻿'+rows.map(r=>r.map(csvCell).join(',')).join('\r\n');
 function customersCSV(){
@@ -720,6 +816,8 @@ function jobsCSV(){
   return toCSV(rows);
 }
 async function importItems(d){
+  if(Array.isArray(d.photos)){for(const p of d.photos){try{if(p&&p.id&&!(await PH.get(p.id)))await PH.put(p);}catch(e){}}}
+  if(d.profile&&d.profile.name&&!profile().name){try{localStorage.setItem('sokythuat.profile',JSON.stringify(d.profile))}catch(e){}}
   let n=0,skip=0;const todo=[];
   COLS.forEach(c=>Object.values(d[c]||{}).forEach(o=>{if(!o||!o.id)return;const cur=Store[c][o.id];if(!cur||String(o.updatedAt||'')>String(cur.updatedAt||''))todo.push([c,o]);else skip++;}));
   if(!Store.db){todo.forEach(([c,o])=>{Store[c][o.id]=o;n++;});Store.saveLocal();return {n,skip};}
@@ -735,7 +833,7 @@ function openDataSheet(){
     <div class="hint">${where}</div>
     <fieldset><legend>Tải file về máy</legend>
       <div class="row"><button class="btn pri" type="button" id="dlBackup">Tải file sao lưu đầy đủ (.json)</button>${canShareFiles()?'<button class="btn" type="button" data-share-backup>Gửi qua Zalo / Drive…</button>':''}</div>
-      <div class="hint">Gồm khách hàng, tọa độ, các ca, ghi chú TK/BT, phân loại, mô hình nhà. Dùng file này để chuyển sang máy mới.</div>
+      <div class="hint">Gồm khách hàng, tọa độ, các ca, ghi chú TK/BT, ảnh kỹ thuật, phân loại, mô hình nhà. Dùng file này để chuyển sang máy mới.</div>
       <div class="row"><button class="btn" type="button" id="dlCust">Danh sách khách (.csv)</button><button class="btn" type="button" id="dlJobs">Danh sách ca (.csv)</button></div>
       <div class="hint">File .csv mở được bằng Excel hoặc Google Sheets để xem, in hay gửi.</div>
     </fieldset>
@@ -761,7 +859,7 @@ function openDataSheet(){
         if(!b.classList.contains('armed')){b.classList.add('armed','danger');b.textContent='Bấm lần nữa: thay toàn bộ dữ liệu hiện tại';setTimeout(()=>{b.classList.remove('armed','danger');b.textContent='Khôi phục về ngày này';},4000);return;}
         const v=await SNAP.get(b.dataset.snapRs);if(!v)return;const d2=JSON.parse(v.json);
         COLS.forEach(c=>{Store[c]=d2[c]||{};});Store.saveLocal();cov.model=null;closeSheet();renderAll();toast('Đã khôi phục dữ liệu về ngày '+fmtFull(b.dataset.snapRs+'T12:00:00'));});}
-    $('#dlBackup',root).addEventListener('click',async()=>{if(await saveFile('so-ky-thuat-saoluu-'+todayKey()+'.json',backupJSON(),'application/json')){stamp();toast('Đã tải file sao lưu');renderAll();}});
+    $('#dlBackup',root).addEventListener('click',async()=>{if(await saveFile('so-ky-thuat-saoluu-'+todayKey()+'.json',await backupJSONFull(),'application/json')){stamp();toast('Đã tải file sao lưu');renderAll();}});
     $('#dlCust',root).addEventListener('click',async()=>{if(await saveFile('khach-hang-'+todayKey()+'.csv',customersCSV(),'text/csv'))toast('Đã tải danh sách khách');});
     $('#dlJobs',root).addEventListener('click',async()=>{if(await saveFile('cac-ca-'+todayKey()+'.csv',jobsCSV(),'text/csv'))toast('Đã tải danh sách ca');});
     $('#restoreFile',root).addEventListener('change',e=>{const file=e.target.files[0];e.target.value='';if(!file)return;const out=$('#restoreOut',root);
@@ -773,20 +871,48 @@ function openDataSheet(){
 }
 
 /* ===================== CÔNG VIỆC ===================== */
-let jobType='';
-function renderJobs(){
-  $('#jobTypeChips').innerHTML=[['','Tất cả'],...Object.entries(TYPES).map(([k,T])=>[k,T.label])].map(([k,l])=>{
-    const n=k?Object.values(Store.jobs).filter(j=>j.type===k).length:0;
-    return `<button class="chip" type="button" data-jt="${k}" aria-pressed="${jobType===k}">${l}${k&&n?` · ${n}`:''}</button>`}).join('');
-  const q=$('#jobSearch').value.trim().toLowerCase();
-  const list=jobsArr().filter(j=>{
-    if(jobType&&j.type!==jobType)return false;
-    if(q){const c=custOf(j);if(!(c.name+' '+(c.contract||'')+' '+(c.address||'')+' '+(j.note||'')).toLowerCase().includes(q))return false;}
-    return true;});
-  if(!list.length){$('#jobList').innerHTML=`<div class="empty">${Object.keys(Store.jobs).length?'Không có ca khớp bộ lọc.':'Chưa có ca nào. Mỗi khi xong một ca triển khai hoặc bảo trì, ghi lại ở đây.'}<button class="btn pri" type="button" data-new-job>+ Ghi ca hoàn thành</button></div>`;return;}
-  let html='',last='';const tk=todayKey();
-  list.forEach(j=>{const d=doneAt(j);const k=d?dayKey(d):'';if(k!==last){last=k;const n=list.filter(x=>dayKey(doneAt(x))===k).length;html+=`<div class="group-h">${k===tk?'Hôm nay · ':''}${k?esc(fmtDate(d)):''} · ${n} ca</div>`;}html+=jobCard(j,false);});
-  $('#jobList').innerHTML=html;
+const RATE_ST={chua:{l:'Chưa xin',c:'s-cho'},daxin:{l:'Đã xin, chờ KH',c:'s-dang'},danhgia:{l:'Đã đánh giá',c:'p-ok'},khong:{l:'KH không đánh giá',c:'p-bad'}};
+const RATE_TPL_DEF={
+  trien_khai:'Chào anh/chị {ten}, em là kỹ thuật viên vừa lắp đặt Internet cho nhà mình (HĐ {hd}) ngày {ngay}. Mạng và Wi-Fi đã hoạt động ổn định, anh/chị dùng có gì chưa rõ cứ nhắn em nhé. Anh/chị vui lòng mở ứng dụng Hi FPT và dành 1 phút đánh giá buổi lắp đặt giúp em. Em cảm ơn anh/chị!',
+  bao_tri:'Chào anh/chị {ten}, em là kỹ thuật viên vừa xử lý sự cố Internet cho nhà mình (HĐ {hd}) ngày {ngay}. Lỗi đã được khắc phục, nếu mạng còn chập chờn anh/chị nhắn em để em hỗ trợ ngay. Anh/chị vui lòng mở ứng dụng Hi FPT và đánh giá giúp em lần bảo trì này nhé. Em cảm ơn anh/chị!'};
+const rateOf=j=>Object.assign({st:'chua',stars:0},j.rate||{});
+const tplKey=t=>'sokythuat.rateTpl.'+(t==='bao_tri'?'bt':'tk');
+function rateTpl(t){t=t==='bao_tri'?'bao_tri':'trien_khai';try{return localStorage.getItem(tplKey(t))||RATE_TPL_DEF[t]}catch(e){return RATE_TPL_DEF[t]}}
+function rateMsg(j){const c=custOf(j);return rateTpl(j.type).replace(/\{ten\}/g,c.name||'').replace(/\{hd\}/g,c.contract||'').replace(/\{loai\}/g,j.type==='bao_tri'?'bảo trì':'lắp đặt').replace(/\{loi\}/g,(j.issue||(j.bt&&j.bt.nguyennhan)||'').toLowerCase()).replace(/\{ngay\}/g,fmtFull(doneAt(j)));}
+function starsHTML(n,jid){return `<span class="stars" ${jid?`data-stars="${esc(jid)}"`:''}>${[1,2,3,4,5].map(i=>`<button type="button" class="star${i<=n?' on':''}" data-star="${i}" aria-label="${i} sao">★</button>`).join('')}</span>`;}
+function setRate(id,patch){const j=JSON.parse(JSON.stringify(Store.jobs[id]));if(!j)return;const r=Object.assign(rateOf(j),patch);
+  if(patch.st==='daxin'&&!r.askedAt)r.askedAt=new Date().toISOString();if(patch.st==='danhgia'&&!r.ratedAt)r.ratedAt=new Date().toISOString();if(patch.st&&patch.st!=='danhgia')r.stars=0;
+  j.rate=r;Store.put('jobs',j);renderAll();}
+let rateMonth=todayKey().slice(0,7),rateFilter='chua';
+function renderRates(){
+  const [Y,M]=rateMonth.split('-').map(Number);$('#rateMonth').textContent='Tháng '+M+'/'+Y;
+  $$('#rateTplBox textarea').forEach(t=>{if(document.activeElement!==t)t.value=rateTpl(t.dataset.tk);});
+  const all=jobsArr().filter(j=>dayKey(doneAt(j)).slice(0,7)===rateMonth);
+  const cnt=k=>all.filter(j=>rateOf(j).st===k).length;const rated=all.filter(j=>rateOf(j).st==='danhgia');
+  const withStars=rated.filter(j=>rateOf(j).stars>0);const avg=withStars.length?withStars.reduce((a,j)=>a+rateOf(j).stars,0)/withStars.length:0;
+  const low=withStars.filter(j=>rateOf(j).stars<=3).length;
+  $('#rateKpis').innerHTML=`<div class="kpi"><span class="tag">Ca trong tháng</span><span class="n">${all.length}</span><span class="hint">chưa xin ${cnt('chua')}</span></div>
+    <div class="kpi" style="--tc:var(--accent)"><span class="tag" style="color:var(--accent)">Đã xin</span><span class="n">${all.length-cnt('chua')}</span><span class="hint">${all.length?Math.round((all.length-cnt('chua'))/all.length*100):0}% số ca</span></div>
+    <div class="kpi" style="--tc:var(--ok)"><span class="tag" style="color:var(--ok)">Đã đánh giá</span><span class="n">${rated.length}</span><span class="hint">${all.length?Math.round(rated.length/all.length*100):0}% số ca · từ chối ${cnt('khong')}</span></div>
+    <div class="kpi" style="--tc:var(--fiber)"><span class="tag">Điểm trung bình</span><span class="n">${withStars.length?avg.toFixed(1):'–'}<small> ★</small></span><span class="hint">${low?low+' đánh giá ≤ 3★':'không có đánh giá thấp'}</span></div>`;
+  $('#rateChips').innerHTML=[['chua','Chưa xin'],['daxin','Chờ KH'],['danhgia','Đã đánh giá'],['khong','Không đánh giá'],['','Tất cả']].map(([k,l])=>`<button class="chip" type="button" data-rf="${k}" aria-pressed="${rateFilter===k}">${l} · ${k?cnt(k):all.length}</button>`).join('');
+  const q=$('#rateSearch').value.trim().toLowerCase();const qn=q.replace(/\D/g,'');
+  const list=all.filter(j=>{if(rateFilter&&rateOf(j).st!==rateFilter)return false;if(!q)return true;const c=custOf(j);return c.name.toLowerCase().includes(q)||(c.contract||'').toLowerCase().includes(q)||(qn&&(c.phone||'').replace(/\D/g,'').includes(qn));});
+  if(!list.length){$('#rateList').innerHTML=`<div class="empty">${all.length?(rateFilter==='chua'?'Đã xin đánh giá hết các ca trong tháng.':'Không có ca nào ở mục này.'):'Tháng này chưa có ca nào. Ca được ghi ở tab Lịch ngày.'}</div>`;return;}
+  $('#rateList').innerHTML=list.map(j=>{const c=custOf(j);const r=rateOf(j);const d=doneAt(j);
+    return `<div class="rcard c-${esc(j.type)}"><span class="stripe"></span><div class="rc-main">
+      <div class="job-top"><span class="tag">${esc(typeLabel(j.type))} · ${esc(fmtFull(d))}</span><span class="pill ${RATE_ST[r.st].c}">${RATE_ST[r.st].l}</span></div>
+      <div class="job-name">${esc(c.name)} ${flagPill(c)}</div>
+      <div class="job-sub">${[c.contract?'HĐ '+esc(c.contract):'',c.phone?'<span class="mono">'+esc(c.phone)+'</span>':''].filter(Boolean).join(' · ')}${r.askedAt?` · xin lúc ${esc(fmtFull(r.askedAt).slice(0,5))} ${fmtTime(r.askedAt)}`:''}</div>
+      ${r.st==='danhgia'?`<div class="row" style="gap:8px">${starsHTML(r.stars,j.id)}<span class="hint">${r.stars?'':'Chạm để chọn số sao KH chấm'}</span></div>`:''}
+      <div class="row" style="gap:6px">
+        <button class="btn sm${r.st==='chua'?' pri':''}" type="button" data-rmsg="${esc(j.id)}">Chép lời nhắn</button>
+        ${c.phone?`<button class="btn sm" type="button" data-copy-phone="${esc(c.phone)}">Chép SĐT</button>`:''}
+        ${r.st!=='daxin'?`<button class="btn sm" type="button" data-rset="${esc(j.id)}" data-v="daxin">Đã xin</button>`:''}
+        ${r.st!=='danhgia'?`<button class="btn sm" type="button" data-rset="${esc(j.id)}" data-v="danhgia">KH đã đánh giá</button>`:''}
+        ${r.st!=='khong'?`<button class="btn sm" type="button" data-rset="${esc(j.id)}" data-v="khong">Không đánh giá</button>`:''}
+        ${r.st!=='chua'?`<button class="btn sm" type="button" data-rset="${esc(j.id)}" data-v="chua">Đặt lại</button>`:''}
+      </div></div></div>`;}).join('');
 }
 
 /* ===================== SHEET ===================== */
@@ -902,6 +1028,12 @@ function openJob(id,preset){
       ${[['tk8','8. TOOL Mỹ bảo','tool',[['có dùng','Có dùng'],['không dùng','Không dùng']]],['tk9','9. KH có cần trang bị MD/AP không (theo nhận định KTV)','cantb',[['Có','Có'],['Không','Không']]],['tk10','10. KH có đồng ý mua thêm MD/AP/thiết bị khác','dongy',[['Có','Có'],['Không','Không']]]].map(([id,l,k,o])=>`<div class="f" style="display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:600;color:var(--muted)">${l}${segHTML(id,o,tk[k]||'')}</div>`).join('')}
       <button class="btn" type="button" id="tkCopy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg>Chép ghi chú TK</button>
     </fieldset>
+    <fieldset><legend>Ảnh kỹ thuật <span id="phCount"></span></legend>
+      <div class="thumbs" id="phBox"></div>
+      <label class="btn" for="phIn" style="cursor:pointer;align-self:flex-start"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Chụp / chọn ảnh</label>
+      <input id="phIn" type="file" accept="image/*" multiple hidden>
+      <div class="hint">Ảnh được nén và đóng dấu ngày giờ, số HĐ, tọa độ ở góc dưới. Ví dụ: công suất quang, modem/ONT, tập điểm, đường dây, biên bản.</div>
+    </fieldset>
     <label class="f">Ghi chú<textarea id="fNote" placeholder="Vật tư đã dùng, lưu ý của khách…">${esc(j.note)}</textarea></label>`;
   const foot=`<div class="row">${ex?'<button class="btn danger" type="button" id="fDel">Xóa</button>':''}</div><div class="row"><button class="btn" type="button" data-close>Hủy</button><button class="btn pri" type="button" id="fSave">Lưu</button></div>`;
   openSheet(ex?'Chi tiết ca':'Ghi ca hoàn thành',body,root=>{
@@ -933,6 +1065,20 @@ function openJob(id,preset){
       if(!$('#bt2b',root).value)$('#bt2b',root).value=c0.name;if(!$('#bt1',root).value)$('#bt1',root).value=btCount6m(c0.id);if(!$('#bt2',root).value)$('#bt2',root).value=c0.phone||'';
       const hd=houseDesc(c0.id);if(!$('#bt3',root).value&&hd.nha)$('#bt3',root).value=hd.nha;if(!$('#bt4',root).value&&hd.thietbi)$('#bt4',root).value=hd.thietbi;});
     sel.addEventListener('change',showCust);showCust();
+    let phIds=(j.photos||[]).slice();
+    const phRender=async()=>{const box=$('#phBox',root);const out=[];for(const id of phIds){try{const p=await PH.get(id);if(p)out.push(`<span class="thumbw"><button type="button" class="thumb" data-photo="${esc(id)}"><img src="${p.data}" alt="Ảnh kỹ thuật"></button><button type="button" class="thumbx" data-phdel="${esc(id)}" aria-label="Xóa ảnh">×</button></span>`);}catch(e){}}
+      box.innerHTML=out.join('');$('#phCount',root).textContent=phIds.length?'· '+phIds.length:'';};
+    phRender();
+    $('#phIn',root).addEventListener('change',async e=>{const files=[...e.target.files];e.target.value='';if(!files.length)return;
+      const c0=Store.customers[sel.value];const la=parseFloat($('#jLat',root).value),lo=parseFloat($('#jLng',root).value);
+      for(const file of files){try{toast('Đang xử lý ảnh…');const now=new Date();
+        const stamp=`${fmtFull(now)} ${fmtTime(now)} · ${typeLabel(type)}${(()=>{const hd=c0?c0.contract:$('#nContract',root).value.trim();return hd?' · HĐ '+hd:'';})()}`+(isFinite(la)&&isFinite(lo)?`\n${la.toFixed(6)}, ${lo.toFixed(6)}`:'')+(profile().name?` · KTV ${profile().name}`:'');
+        const data=await compressPhoto(file,stamp);const id=newId();await PH.put({id,jobId:j.id,at:now.toISOString(),data});phIds.push(id);}
+        catch(err){toast(err&&err.name==='QuotaExceededError'?'Bộ nhớ máy đầy, không lưu được ảnh':'Không đọc được ảnh này');}}
+      phRender();toast('Đã thêm ảnh');});
+    $('#phBox',root).addEventListener('click',async e=>{const d=e.target.closest('[data-phdel]');if(d){const b=d;if(!b.classList.contains('armed')){b.classList.add('armed');b.textContent='Xóa?';setTimeout(()=>{b.classList.remove('armed');b.textContent='×';},2500);return;}
+        phIds=phIds.filter(x=>x!==b.dataset.phdel);try{await PH.del(b.dataset.phdel)}catch(err){}phRender();return;}
+      const t=e.target.closest('[data-photo]');if(t)openPhoto(t.dataset.photo);});
     const jLat=$('#jLat',root),jLng=$('#jLng',root);let jSrc=j.coordSrc||'paste',jAcc=j.coordAcc||null,coordTouched=hasCoord(j);
     const coordLinks=()=>{const la=parseFloat(jLat.value),lo=parseFloat(jLng.value);const ok=isFinite(la)&&isFinite(lo);
       $('#jCoordLinks',root).innerHTML=ok?`<a class="btn sm" href="${mapUrl(la,lo)}" target="_blank" rel="noopener">Xem bản đồ</a><a class="btn sm" href="${dirUrl(la,lo)}" target="_blank" rel="noopener">Chỉ đường</a>${inVN(la,lo)?'':'<span class="pill p-bad">Ngoài lãnh thổ VN</span>'}`:'<span class="hint">Chưa có tọa độ cho ca này.</span>';};
@@ -960,12 +1106,13 @@ function openJob(id,preset){
             const h=Array.isArray(c2.coordHist)?c2.coordHist:[];if(!h.length&&hasCoord(c2)&&c2.coordAt)h.push({at:c2.coordAt,lat:c2.lat,lng:c2.lng,src:'paste'});
             h.push({at:now,lat:la,lng:lo,src:jSrc,acc:jAcc?Math.round(jAcc):null,jobId:j.id});Object.assign(c2,{lat:la,lng:lo,coordAt:now,coordHist:h.slice(-30)});Store.put('customers',c2);}}
         else{j.lat=null;j.lng=null;}}
+      j.photos=phIds.slice();
       if(type==='trien_khai'){j.tk=tkGet();const c1=Store.customers[cid];if(c1){if(!j.tk.tenkh)j.tk.tenkh=c1.name;if(!j.tk.lienhe)j.tk.lienhe=c1.phone||'';}}
       if(type==='bao_tri'){j.bt=btGet();const c1=Store.customers[cid];if(c1){if(!j.bt.tenkh)j.bt.tenkh=c1.name;if(!j.bt.lienhe)j.bt.lienhe=c1.phone||'';}}
       Store.put('jobs',j);renderAll();if(!silent){closeSheet();toast('Đã lưu ca');}return true;
     }
     $('#fSave',root).addEventListener('click',()=>save(false));
-    const del=$('#fDel',root);if(del)armDelete(del,()=>{Store.del('jobs',j.id);closeSheet();renderAll();toast('Đã xóa ca');});
+    const del=$('#fDel',root);if(del)armDelete(del,()=>{(j.photos||[]).forEach(id=>PH.del(id).catch(()=>{}));Store.del('jobs',j.id);closeSheet();renderAll();toast('Đã xóa ca');});
   },foot);
 }
 
@@ -1012,7 +1159,6 @@ function openCustomer(id){
       <label class="f">Hoặc dán link Google Maps hoặc “vĩ độ, kinh độ”<input id="cPaste" placeholder="10.776889, 106.700806" autocomplete="off"><span class="hint" id="cPasteHint">Trên Google Maps: nhấn giữ vào vị trí nhà → chạm vào dãy số tọa độ để sao chép → dán vào đây.</span></label>
       <div class="grid2"><label class="f">Vĩ độ (lat)<input id="cLat" type="number" step="0.000001" class="mono" value="${v(c.lat)}"></label><label class="f">Kinh độ (lng)<input id="cLng" type="number" step="0.000001" class="mono" value="${v(c.lng)}"></label></div>
       <div class="row" id="cLinks"></div>
-      <details ${ex&&coordHist(c).length?'':'hidden'}><summary class="hint" style="cursor:pointer">Lịch sử lấy tọa độ (${coordHist(c).length} lần)</summary><div style="margin-top:8px">${histHTML(c)}</div></details>
     </fieldset>
     <fieldset><legend>Tập điểm đấu nối</legend>
       <label class="f">Mã tập điểm / hộp cáp<input id="cBox" value="${esc(c.box)}" class="mono" placeholder="VD: HCM-Q1-TD045" autocomplete="off"></label>
@@ -1063,29 +1209,22 @@ function openCustomer(id){
 }
 
 /* ===================== TỌA ĐỘ ===================== */
-let custFilter='';
 function renderCustomers(){
-  const q=$('#custSearch').value.trim().toLowerCase();const tk=todayKey();const cDay=$('#custDate').value;
-  $('#custDateClear').hidden=!cDay;$('#custDateCopy').hidden=!cDay;
-  const list=Object.values(Store.customers).filter(c=>{
-    if(custFilter==='missing'&&hasCoord(c))return false;
-    if(cDay&&!coordHist(c).some(e=>dayKey(e.at)===cDay))return false;
-    if(q&&!(c.name+' '+(c.contract||'')+' '+(c.address||'')+' '+(c.box||'')+' '+(c.phone||'')).toLowerCase().includes(q))return false;
-    return true;}).sort((a,b)=>(hasCoord(a)-hasCoord(b))||a.name.localeCompare(b.name,'vi'));
-  if(!list.length){$('#custList').innerHTML=`<div class="empty">${cDay?'Không có tọa độ nào được lấy trong ngày '+esc(fmtFull(cDay+'T12:00:00'))+'.':Object.keys(Store.customers).length?'Không có khách khớp bộ lọc.':'Chưa có khách hàng. Khách được tạo khi bạn thêm việc, hoặc thêm trực tiếp ở đây.'}</div>`;return;}
-  $('#custList').innerHTML=list.map(c=>{
-    let dist='';if(hasCoord(c)&&hasCoord({lat:c.boxLat,lng:c.boxLng})){const d=haversine(c.lat,c.lng,c.boxLat,c.boxLng);dist=`<span class="hint">· cách tập điểm <span class="mono">${Math.round(d)} m</span></span>`;}
-    return `<button class="cust" type="button" data-cust="${esc(c.id)}">
-      <span class="nm">${esc(c.name)} ${flagPill(c)}</span><span class="mono hint">${esc(c.contract||'')}</span>
-      <span class="sub">${esc(c.address||'Chưa có địa chỉ')}</span>
-      <span class="co">${hasCoord(c)?`<span class="pill p-ok">Có tọa độ</span><span class="mono">${(+c.lat).toFixed(6)}, ${(+c.lng).toFixed(6)}</span>`:'<span class="pill p-warn">Chưa có tọa độ</span>'}
-        ${c.box?`<span class="hint">TĐ <span class="mono">${esc(c.box)}</span></span>`:''}${dist}
-        ${c.coordAt?`<span class="hint">· lấy ${c.coordAt&&dayKey(c.coordAt)===tk?'<b>hôm nay</b>':esc(fmtFull(c.coordAt))}</span>`:''}</span></button>`}).join('');
-}
-function dayCoordText(day){
-  const rows=[];Object.values(Store.customers).forEach(c=>coordHist(c).filter(e=>dayKey(e.at)===day).forEach(e=>rows.push({c,e})));
-  rows.sort((a,b)=>String(a.e.at).localeCompare(String(b.e.at)));
-  return `TỌA ĐỘ LẤY NGÀY ${fmtFull(day+'T12:00:00')} (${rows.length})\n`+rows.map(({c,e})=>`- ${fmtTime(e.at)} ${c.contract?'HĐ '+c.contract+' – ':''}${c.name}: ${(+e.lat).toFixed(6)}, ${(+e.lng).toFixed(6)}${e.src==='gps'&&e.acc?' (GPS ±'+e.acc+' m)':''}`).join('\n');
+  const q=$('#custSearch').value.trim().toLowerCase();const qn=q.replace(/\D/g,'');const out=$('#custList');
+  if(!q){out.innerHTML=`<div class="empty">Nhập tên khách, số hợp đồng, số điện thoại hoặc mã tập điểm để xem tọa độ.${Object.keys(Store.customers).length?'':'<br>Chưa có khách hàng nào: khách được tạo khi bạn ghi ca.'}</div>`;return;}
+  const list=Object.values(Store.customers).filter(c=>(c.name+' '+(c.contract||'')+' '+(c.address||'')+' '+(c.box||'')).toLowerCase().includes(q)||(qn.length>=3&&(c.phone||'').replace(/\D/g,'').includes(qn)))
+    .sort((a,b)=>a.name.localeCompare(b.name,'vi')).slice(0,30);
+  if(!list.length){out.innerHTML=`<div class="empty">Không tìm thấy khách “${esc($('#custSearch').value.trim())}”.</div>`;return;}
+  out.innerHTML=list.map(c=>{const ok=hasCoord(c);let dist='';
+    if(ok&&hasCoord({lat:c.boxLat,lng:c.boxLng})){const d=haversine(c.lat,c.lng,c.boxLat,c.boxLng);dist=` · cách tập điểm <span class="mono">${Math.round(d)} m</span>`;}
+    return `<div class="look" style="gap:10px">
+      <div class="look-h"><div><div class="job-name">${esc(c.name)} ${flagPill(c)}</div><div class="hint">${[c.contract?'HĐ <span class="mono">'+esc(c.contract)+'</span>':'',esc(c.address||'')].filter(Boolean).join(' · ')}</div></div>
+        <button class="btn sm" type="button" data-cust="${esc(c.id)}">Sửa</button></div>
+      ${ok?`<div class="coordbig mono">${(+c.lat).toFixed(6)}, ${(+c.lng).toFixed(6)}</div>
+        <div class="hint">${c.box?'Tập điểm <span class="mono">'+esc(c.box)+'</span>':''}${dist}</div>
+        <div class="row" style="gap:6px"><a class="btn sm pri" href="${dirUrl(c.lat,c.lng)}" target="_blank" rel="noopener">Chỉ đường</a><a class="btn sm" href="${mapUrl(c.lat,c.lng)}" target="_blank" rel="noopener">Xem bản đồ</a><button class="btn sm" type="button" data-copy-coord="${(+c.lat).toFixed(6)}, ${(+c.lng).toFixed(6)}">Chép tọa độ</button></div>`
+      :`<div class="row"><span class="pill p-warn">Chưa có tọa độ</span><button class="btn sm" type="button" data-cust="${esc(c.id)}">Thêm tọa độ</button></div>`}
+    </div>`;}).join('');
 }
 
 /* ===================== TRA CỨU ===================== */
@@ -1119,12 +1258,14 @@ function caseInfoHTML(j){
       <button class="btn sm pri" type="button" data-job="${esc(j.id)}">Sửa ca</button></div>
     
     <div class="infobox">
+      <div class="kv"><span>Đánh giá Hi FPT</span><span>${(()=>{const r=rateOf(j);return `<span class="pill ${RATE_ST[r.st].c}">${RATE_ST[r.st].l}</span>${r.st==='danhgia'&&r.stars?' <span style="color:var(--fiber);letter-spacing:1px">'+'★'.repeat(r.stars)+'</span>':''}`;})()}</span></div>
       ${j.issue?`<div class="kv"><span>Lỗi khách báo</span><span>${esc(j.issue)}</span></div>`:''}
       <div class="kv"><span>Công suất quang Rx</span><span>${rx?`<span class="mono">${esc(j.rx)} dBm</span> <span class="pill ${rx.cls}">${rx.t}</span>`:'—'}</span></div>
       <div class="kv"><span>Tốc độ</span><span class="mono">${j.down?esc(j.down)+' / '+esc(j.up||'?')+' Mbps':'—'}</span></div>
       <div class="kv"><span>Serial ONT/Modem</span><span class="mono">${esc(j.serial||'—')}</span></div>
       <div class="kv"><span>Tọa độ</span><span>${hasCoord(j)?`<a href="${mapUrl(j.lat,j.lng)}" target="_blank" rel="noopener" class="mono" style="color:var(--accent)">${(+j.lat).toFixed(6)}, ${(+j.lng).toFixed(6)}</a>${j.coordSrc==='gps'&&j.coordAcc?` <span class="hint">GPS ±${j.coordAcc} m</span>`:''}`:'—'}</span></div>
     </div>
+    ${(j.photos||[]).length?`<div class="sec-title" style="font-size:18px">Ảnh kỹ thuật <small>${j.photos.length} ảnh</small></div><div class="thumbs" data-photos="${esc(j.photos.join(','))}"></div>`:''}
     ${note?`<div class="sec-title" style="font-size:18px">${j.type==='trien_khai'?'Ghi chú TK':'Note BT'}</div><pre class="notepre">${esc(note)}</pre><button class="btn" type="button" data-copynote="${esc(j.id)}">Chép ${j.type==='trien_khai'?'ghi chú TK':'note BT'}</button>`:'<div class="hint">Ca này chưa có ghi chú TK/BT.</div>'}
     ${j.note?`<div class="sec-title" style="font-size:18px">Ghi chú thêm</div><div style="white-space:pre-wrap">${esc(j.note)}</div>`:''}
   </div>`;
@@ -1132,7 +1273,7 @@ function caseInfoHTML(j){
 function renderLookDetail(){
   const c=Store.customers[lookCust];const js=casesOf(c.id);const box=$('#lookDetail');
   if(lookJob&&Store.jobs[lookJob]){
-    box.innerHTML=`<div style="display:flex;flex-direction:column;gap:12px"><div><button class="btn sm" type="button" data-lback="cust">‹ ${esc(c.name)}</button></div>${caseInfoHTML(Store.jobs[lookJob])}</div>`;return;}
+    box.innerHTML=`<div style="display:flex;flex-direction:column;gap:12px"><div><button class="btn sm" type="button" data-lback="cust">‹ ${esc(c.name)}</button></div>${caseInfoHTML(Store.jobs[lookJob])}</div>`;fillThumbs(box);return;}
   lookJob=null;
   const dep=js.find(j=>j.type==='trien_khai');
   const head=dep?`<div class="days"><span class="big">${daysSince(doneAt(dep))}</span><span><b>ngày</b> kể từ khi hoàn thành triển khai<br><span class="hint">Triển khai ${esc(fmtFull(doneAt(dep)))}</span></span></div>`
@@ -1147,7 +1288,7 @@ function renderLookDetail(){
     ${js.length?`<div class="tl">${js.map(j=>{const d=doneAt(j);return `<button class="tl-i c-${esc(j.type)} done" type="button" data-lj="${esc(j.id)}">
       <span class="row" style="gap:8px"><b style="font-size:15px">${esc(fmtFull(d))}</b><span class="tag">${j.type==='trien_khai'?'TK':j.type==='bao_tri'?'BT':esc(typeLabel(j.type))}</span><span class="hint">${daysSince(d)} ngày trước</span></span>
       <span class="hint">${j.type==='bao_tri'?esc(j.issue||(j.bt&&j.bt.nguyennhan)||'Bảo trì'):'Triển khai'}${j.rx!==''&&j.rx!=null?' · Rx '+esc(j.rx)+' dBm':''} · xem chi tiết ›</span></button>`}).join('')}</div>`:'<div class="hint">Chưa có ca nào.</div>'}
-    <div class="sec-title" style="font-size:18px">Tọa độ theo ngày</div>${histHTML(c,5)}
+    <div class="kv"><span class="hint">Tọa độ</span>${hasCoord(c)?`<a class="mono" style="color:var(--accent)" href="${mapUrl(c.lat,c.lng)}" target="_blank" rel="noopener">${(+c.lat).toFixed(6)}, ${(+c.lng).toFixed(6)}</a>`:'<span class="pill p-warn">Chưa có</span>'}</div>
    </div></div>`;
 }
 
@@ -1490,11 +1631,9 @@ function setupCanvas(){
 
 /* ===================== Sự kiện chung ===================== */
 document.addEventListener('click',e=>{
-  if(e.target.closest('[data-new-job]')){openJob(null);return;}
+  {const nj=e.target.closest('[data-new-job]');if(nj){openJob(null,nj.dataset.newJob?{type:nj.dataset.newJob}:undefined);return;}}
   const jb=e.target.closest('[data-job]');if(jb){openJob(jb.dataset.job);return;}
   const cb=e.target.closest('[data-cust]');if(cb){openCustomer(cb.dataset.cust);return;}
-  const jt=e.target.closest('[data-jt]');if(jt){jobType=jt.dataset.jt;renderJobs();return;}
-  const cf=e.target.closest('[data-cf]');if(cf){custFilter=cf.dataset.cf;$$('#custChips .chip').forEach(x=>x.setAttribute('aria-pressed',x===cf));renderCustomers();return;}
 });
 $('#btnReport').addEventListener('click',()=>copyText(dayReport(),'Đã chép báo cáo, dán vào nhóm chat để gửi'));
 $('#v-hom-nay').addEventListener('click',e=>{
@@ -1504,24 +1643,33 @@ $('#v-hom-nay').addEventListener('click',e=>{
   const c=e.target.closest('[data-cal]');if(c){const v=c.dataset.cal;if(v==='today'){selDay=todayKey();calMonth=selDay.slice(0,7);}else{const [Y,M]=calMonth.split('-').map(Number);const n=new Date(Y,M-1+(+v),1);calMonth=n.getFullYear()+'-'+pad2(n.getMonth()+1);}renderToday();return;}
 });
 $('#btnData').addEventListener('click',openDataSheet);
+document.addEventListener('click',e=>{if(e.target.id==='ktvEdit')openProfile();});
 document.addEventListener('click',async e=>{if(e.target.closest('[data-share-backup]')){shareBackup();return;}
-  if(e.target.closest('[data-dl-backup]')){if(await saveFile('so-ky-thuat-saoluu-'+todayKey()+'.json',backupJSON(),'application/json')){stampBackup();toast('Đã tải file sao lưu');renderAll();}}});
-setTimeout(autoSnapshot,4000);
+  if(e.target.closest('[data-dl-backup]')){if(await saveFile('so-ky-thuat-saoluu-'+todayKey()+'.json',await backupJSONFull(),'application/json')){stampBackup();toast('Đã tải file sao lưu');renderAll();}}});
+setTimeout(autoSnapshot,4000);setTimeout(cleanOrphanPhotos,8000);
 document.addEventListener('click',e=>{if(e.target.closest('[data-open-data]'))openDataSheet();});
 if(!isEmbedded&&navigator.storage&&navigator.storage.persist){navigator.storage.persist().catch(()=>{});}
 $('#btnNewCust').addEventListener('click',()=>openCustomer(null));
-$('#jobSearch').addEventListener('input',renderJobs);
+$('#rateSearch').addEventListener('input',renderRates);
+$('#rateTplBox').addEventListener('change',e=>{const t=e.target.dataset.tk;if(!t)return;try{localStorage.setItem(tplKey(t),e.target.value.trim()||RATE_TPL_DEF[t])}catch(err){}toast('Đã lưu lời nhắn '+(t==='bao_tri'?'bảo trì':'triển khai'));});
+$('#rateTplBox').addEventListener('click',e=>{const b=e.target.closest('[data-tpl-reset]');if(!b)return;const t=b.dataset.tplReset;try{localStorage.removeItem(tplKey(t))}catch(err){}$('#rateTpl_'+(t==='bao_tri'?'bt':'tk')).value=RATE_TPL_DEF[t];toast('Đã về lời nhắn mẫu');});
+$('#v-danh-gia').addEventListener('click',e=>{
+  const rm=e.target.closest('[data-rm]');if(rm){const [Y,M]=rateMonth.split('-').map(Number);const d=new Date(Y,M-1+(+rm.dataset.rm),1);rateMonth=d.getFullYear()+'-'+pad2(d.getMonth()+1);renderRates();return;}
+  const rf=e.target.closest('[data-rf]');if(rf){rateFilter=rf.dataset.rf;renderRates();return;}
+  const mg=e.target.closest('[data-rmsg]');if(mg){const j=Store.jobs[mg.dataset.rmsg];if(!j)return;copyText(rateMsg(j),'Đã chép lời nhắn, dán vào Zalo/SMS gửi khách');if(rateOf(j).st==='chua')setRate(j.id,{st:'daxin'});return;}
+  const cp=e.target.closest('[data-copy-phone]');if(cp){copyText(cp.dataset.copyPhone,'Đã chép số điện thoại');return;}
+  const rs=e.target.closest('[data-rset]');if(rs){setRate(rs.dataset.rset,{st:rs.dataset.v});toast(RATE_ST[rs.dataset.v].l);return;}
+  const st=e.target.closest('[data-star]');if(st){const w=st.closest('[data-stars]');if(w)setRate(w.dataset.stars,{stars:+st.dataset.star});}
+});
 $('#custSearch').addEventListener('input',renderCustomers);
-$('#custDate').addEventListener('change',renderCustomers);
-$('#custToday').addEventListener('click',()=>{$('#custDate').value=todayKey();renderCustomers();});
-$('#custDateClear').addEventListener('click',()=>{$('#custDate').value='';renderCustomers();});
-$('#custDateCopy').addEventListener('click',()=>copyText(dayCoordText($('#custDate').value),'Đã chép danh sách tọa độ'));
+$('#custList').addEventListener('click',e=>{const b=e.target.closest('[data-copy-coord]');if(b)copyText(b.dataset.copyCoord,'Đã chép tọa độ');});
 $('#lookIn').addEventListener('input',renderLookup);
 $('#flagSearch').addEventListener('input',renderFlags);
 $('#btnFlagNew').addEventListener('click',()=>openFlag(null));
 $('#v-phan-loai').addEventListener('click',e=>{const b=e.target.closest('[data-ff]');if(b){flagFilter=b.dataset.ff;renderFlags();}});
 document.addEventListener('click',e=>{const b=e.target.closest('[data-flag]');if(b)openFlag(b.dataset.flag);});
 $('#v-tra-cuu').addEventListener('click',e=>{
+  const ph=e.target.closest('[data-photo]');if(ph){openPhoto(ph.dataset.photo);return;}
   const lc=e.target.closest('[data-lc]');if(lc){lookCust=lc.dataset.lc;lookJob=null;renderLookup();scrollTo(0,0);return;}
   const lj=e.target.closest('[data-lj]');if(lj){lookJob=lj.dataset.lj;renderLookup();scrollTo(0,0);return;}
   const lb=e.target.closest('[data-lback]');if(lb){if(lb.dataset.lback==='list')lookCust=null;lookJob=null;renderLookup();return;}
