@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bầu Trời Sống</title>
+<meta name="description" content="Chất lượng không khí, thời tiết và bản đồ theo thời gian thực, theo dõi biến động thực tế.">
+<meta name="theme-color" content="#0E2433">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Bầu Trời">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="top-row">
+    <button class="loc-btn" id="locBtn" aria-label="Đổi địa điểm">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"/></svg>
+      <span class="loc-text"><b id="locName">Đang xác định vị trí…</b><small id="locSub">&nbsp;</small></span>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="m7 10 5 5 5-5z"/></svg>
+    </button>
+    <div class="top-actions">
+      <button class="icon-btn" id="gpsBtn" title="Vị trí hiện tại" aria-label="Dùng vị trí hiện tại">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm9 3h-2.07A7 7 0 0 0 13 5.07V3h-2v2.07A7 7 0 0 0 5.07 11H3v2h2.07A7 7 0 0 0 11 18.93V21h2v-2.07A7 7 0 0 0 18.93 13H21v-2Zm-9 6a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/></svg>
+      </button>
+      <button class="icon-btn" id="refreshBtn" title="Làm mới ngay" aria-label="Làm mới dữ liệu">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M17.65 6.35A7.95 7.95 0 0 0 12 4a8 8 0 1 0 7.73 10h-2.08A6 6 0 1 1 12 6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35Z"/></svg>
+      </button>
+      <button class="icon-btn" id="themeBtn" title="Đổi giao diện sáng/tối" aria-label="Đổi giao diện">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.39 5.39 0 0 1-4.4 2.26 5.4 5.4 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1Z"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="live-row">
+    <span class="live" id="liveDot"><i></i><span id="liveText">Đang kết nối…</span></span>
+    <span class="next" id="nextText"></span>
+  </div>
+</header>
+
+<!-- Bảng chọn địa điểm -->
+<div class="sheet" id="sheet" hidden>
+  <div class="sheet-card" role="dialog" aria-modal="true" aria-label="Chọn địa điểm">
+    <div class="sheet-head">
+      <input id="searchInput" type="search" placeholder="Tìm thành phố, quận, huyện…" autocomplete="off">
+      <button class="icon-btn" id="sheetClose" aria-label="Đóng">✕</button>
+    </div>
+    <button class="row-btn" id="sheetGps">📍 Dùng vị trí hiện tại (GPS)</button>
+    <div id="searchResults" class="list"></div>
+    <h4 class="sub-h">Địa điểm đã lưu</h4>
+    <div id="favList" class="list"></div>
+    <p class="hint">Mẹo: chạm vào bất kỳ điểm nào trên tab <b>Bản đồ</b> để xem số liệu tại đó.</p>
+  </div>
+</div>
+
+<main>
+  <!-- TAB KHÔNG KHÍ -->
+  <section class="tab" id="tab-air" data-tab="air">
+    <div class="card hero" id="aqiHero">
+      <div class="gauge-wrap"><svg id="gauge" viewBox="0 0 240 140" role="img" aria-label="Chỉ số AQI"></svg></div>
+      <div class="hero-info">
+        <div class="cat-chip" id="aqiCat">—</div>
+        <p class="advice" id="aqiAdvice">Đang tải dữ liệu…</p>
+        <div class="hero-meta">
+          <span>Chất ô nhiễm chính: <b id="aqiMain">—</b></span>
+          <span>AQI châu Âu: <b id="aqiEu">—</b></span>
+          <span id="aqiDelta"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3>Diễn biến 24 giờ qua &amp; 24 giờ tới</h3>
+        <div class="seg" id="aqMetricSeg">
+          <button data-m="us_aqi" class="on">AQI</button>
+          <button data-m="pm2_5">PM2.5</button>
+          <button data-m="pm10">PM10</button>
+          <button data-m="ozone">O₃</button>
+          <button data-m="nitrogen_dioxide">NO₂</button>
+        </div>
+      </div>
+      <div class="chart" id="aqChart"></div>
+      <p class="chart-note">Vạch dọc = hiện tại · phần nhạt bên phải là dự báo</p>
+    </div>
+
+    <h3 class="sec-h">Các chất ô nhiễm</h3>
+    <div class="grid pol-grid" id="polGrid"></div>
+    <p class="source">Nguồn: mô hình CAMS (Copernicus) qua Open-Meteo, cập nhật mỗi giờ, độ phân giải ~10–40 km. Số liệu mô hình có thể khác trạm quan trắc tại chỗ.</p>
+  </section>
+
+  <!-- TAB THỜI TIẾT -->
+  <section class="tab" id="tab-weather" data-tab="weather" hidden>
+    <div class="card wx-hero">
+      <div class="wx-main">
+        <div class="wx-icon" id="wxIcon"></div>
+        <div>
+          <div class="wx-temp" id="wxTemp">—°</div>
+          <div class="wx-desc" id="wxDesc">—</div>
+          <div class="wx-feel" id="wxFeel"></div>
+        </div>
+      </div>
+      <div class="wx-stats" id="wxStats"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>48 giờ: nhiệt độ</h3></div>
+      <div class="chart" id="tempChart"></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>48 giờ: khả năng mưa</h3></div>
+      <div class="chart short" id="rainChart"></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>Theo giờ</h3></div>
+      <div class="hours" id="hourStrip"></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>7 ngày tới</h3></div>
+      <div id="dailyList" class="daily"></div>
+    </div>
+    <p class="source">Nguồn: Open-Meteo (tổng hợp mô hình ECMWF, GFS, ICON…), cập nhật ~15 phút.</p>
+  </section>
+
+  <!-- TAB BẢN ĐỒ -->
+  <section class="tab tab-map" id="tab-map" data-tab="map" hidden>
+    <div class="map-tools">
+      <div class="seg" id="mapLayerSeg">
+        <button data-l="aqi" class="on">AQI</button>
+        <button data-l="pm25">PM2.5</button>
+        <button data-l="temp">Nhiệt độ</button>
+        <button data-l="wind">Gió</button>
+        <button data-l="none">Tắt</button>
+      </div>
+      <label class="toggle"><input type="checkbox" id="radarToggle" checked> Radar mưa</label>
+    </div>
+    <div id="map"></div>
+    <div class="radar-bar" id="radarBar" hidden>
+      <button class="icon-btn small" id="radarPlay" aria-label="Phát/dừng radar">▶</button>
+      <input type="range" id="radarSlider" min="0" max="0" value="0" aria-label="Khung thời gian radar">
+      <span id="radarTime">—</span>
+    </div>
+    <div class="map-legend" id="mapLegend"></div>
+    <div class="map-status" id="mapStatus"></div>
+  </section>
+
+  <!-- TAB BIẾN ĐỘNG -->
+  <section class="tab" id="tab-changes" data-tab="changes" hidden>
+    <div class="card">
+      <div class="card-head"><h3>So sánh với trước đây</h3></div>
+      <div class="table-wrap"><table class="cmp" id="cmpTable"></table></div>
+      <p class="chart-note">▲ tăng · ▼ giảm. Với chất ô nhiễm: đỏ = xấu đi, xanh = tốt lên.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3>Nhật ký thay đổi thực tế</h3>
+        <button class="link-btn" id="notifyBtn">🔔 Bật thông báo</button>
+      </div>
+      <p class="hint">Mỗi lần dữ liệu mới về, app so sánh với lần đo trước và ghi lại thay đổi đáng kể: AQI đổi mức, bắt đầu/tạnh mưa, nhiệt độ, gió…</p>
+      <ul class="events" id="eventList"></ul>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3>Các lần đo đã ghi</h3>
+        <button class="link-btn" id="csvBtn">Tải CSV</button>
+      </div>
+      <div class="table-wrap"><table class="log" id="logTable"></table></div>
+    </div>
+  </section>
+</main>
+
+<nav class="tabbar" id="tabbar">
+  <button data-go="air" class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 10h11a3 3 0 1 0-3-3h2a1 1 0 1 1 1 1H4v2Zm0 4h15a2 2 0 1 1-2 2h-2a4 4 0 1 0 4-4H4v2Zm0-8h5V4H4v2Z"/></svg><span>Không khí</span></button>
+  <button data-go="weather"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.5 20a4.5 4.5 0 0 1-.72-8.94A6 6 0 0 1 17.4 9.1 4.5 4.5 0 0 1 17.5 20h-11Z"/></svg><span>Thời tiết</span></button>
+  <button data-go="map"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m15 5.1-6-2.1-6 2.3V21l6-2.3 6 2.1 6-2.3V3l-6 2.1Zm0 13.5-6-2.1V5.4l6 2.1v11.1Z"/></svg><span>Bản đồ</span></button>
+  <button data-go="changes"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m3.5 18.5 6-6 4 4L22 6.9 20.6 5.5l-7.1 8-4-4L2 17l1.5 1.5Z"/></svg><span>Biến động</span></button>
+</nav>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="vendor/leaflet/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
