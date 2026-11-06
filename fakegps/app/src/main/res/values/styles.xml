@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#0A7CC1</color>
+    <color name="primary_dark">#0E2433</color>
+    <color name="danger">#C8322B</color>
+    <color name="card">#FFFFFF</color>
+    <color name="ink">#0E1A26</color>
+    <color name="muted">#66768A</color>
+    <style name="AppTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/primary</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark</item>
+        <item name="android:colorAccent">@color/primary</item>
+        <item name="android:statusBarColor">@color/primary_dark</item>
+    </style>
+</resources>
